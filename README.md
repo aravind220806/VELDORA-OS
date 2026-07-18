@@ -1,342 +1,250 @@
-# LEMON-OS
 # 🍋 Lemon OS
 
 <div align="center">
 
-![Lemon OS Logo](assets/logo.png)
+# 🍋 Lemon OS
 
 ### **Simple • Powerful • Refreshing**
 
-*A modern Arch Linux-based distribution built for Developers, Ethical Hackers, Cybersecurity Professionals, and Linux Enthusiasts.*
+*A modern Arch Linux–based operating system built for developers, cybersecurity professionals, ethical hackers, students, and Linux enthusiasts.*
 
-![Arch Linux](https://img.shields.io/badge/Base-Arch%20Linux-1793D1?style=for-the-badge&logo=arch-linux)
-![Version](https://img.shields.io/badge/Version-2026.07-green?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-2026.07-success?style=for-the-badge)
+![Base](https://img.shields.io/badge/Base-Arch_Linux-1793D1?style=for-the-badge&logo=arch-linux)
 ![Architecture](https://img.shields.io/badge/Architecture-x86__64-orange?style=for-the-badge)
-![License](https://img.shields.io/badge/License-GPLv3-blue?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
 
 </div>
 
 ---
 
-## 📖 About
+# 📖 About
 
-**Lemon OS** is a lightweight, modern, and security-focused Linux distribution based on **Arch Linux**.
+Lemon OS is a clean, lightweight and performance-focused operating system based on Arch Linux.
 
-Designed with simplicity, performance, and productivity in mind, Lemon OS provides a clean desktop experience while including essential tools for:
+It is designed to deliver a beautiful desktop experience while providing powerful tools for development, cybersecurity, learning and daily productivity.
 
-- 💻 Software Development
-- 🔐 Cybersecurity
-- 🛡️ Ethical Hacking
-- ☁️ Cloud & DevOps
-- 🎓 Learning Linux
-- 🚀 Daily Productivity
+## ✨ Highlights
 
-Our goal is to create an operating system that feels **simple enough for beginners** while remaining **powerful enough for professionals**.
+- 🍋 Beautiful modern desktop
+- ⚡ Lightweight & fast
+- 🔒 Security focused
+- 💻 Developer ready
+- 🛡 Cybersecurity ready
+- 📦 Rolling release
+- 🚀 Optimized performance
 
 ---
 
-# ✨ Features
-
-## 🍋 Beautiful Desktop
+# 🖥 Desktop Experience
 
 - Modern UI
-- Minimal Design
 - Dark Theme
-- Fast Boot
-- Smooth Animations
-- Clean Icons
-- Elegant Wallpapers
+- Smooth animations
+- Fast startup
+- Clean layouts
+- Elegant wallpapers
+- Responsive workflow
 
 ---
 
-## ⚡ Performance
+# ⚡ Performance
 
-- Lightweight
-- Fast Package Management
-- Low RAM Usage
-- Optimized Boot Process
-- SSD Friendly
-- Optimized Kernel Configuration
-
----
-
-## 🔒 Security
-
-- Secure by Default
-- Updated Packages
-- Latest Linux Kernel
-- Firewall Ready
-- Secure Package Sources
-- Privacy Focused
+- Optimized kernel configuration
+- Low RAM usage
+- Fast package management
+- SSD optimized
+- Latest Linux kernel
+- Stable rolling updates
 
 ---
 
-## 🛠 Developer Friendly
+# 🔐 Security
 
-Includes tools for developers:
+- Latest security updates
+- Secure repositories
+- Firewall ready
+- Privacy focused
+- Reliable package verification
+
+---
+
+# 👨‍💻 Development Tools
 
 - Git
-- VS Code (optional)
 - Python
 - GCC
-- Make
-- Docker Support
-- Node.js
-- Java
+- Clang
 - Rust
+- Java
+- Node.js
+- Docker Support
+- VS Code (optional)
 
 ---
 
-## 🔐 Cybersecurity Ready
+# 🛡 Cybersecurity Tools
 
-Perfect for cybersecurity students and professionals.
-
-Pre-configured support for tools such as:
+Optional packages include:
 
 - Nmap
 - Wireshark
 - Burp Suite
 - Metasploit Framework
 - Aircrack-ng
-- John the Ripper
-- Hydra
-- Gobuster
 - SQLMap
+- Gobuster
+- Hydra
 - Nikto
-
-> Some tools may be available as optional packages depending on the installation profile.
+- John the Ripper
 
 ---
 
 # 📦 Package Manager
 
-Lemon OS uses the powerful Arch Linux package manager.
-
-- pacman
-- AUR Support
-- Latest Software
-- Rolling Release
-
-Example:
+Lemon OS uses Arch Linux's package manager.
 
 ```bash
 sudo pacman -Syu
 ```
 
-Install packages:
+Install software:
 
 ```bash
-sudo pacman -S firefox
+sudo pacman -S package-name
 ```
 
 ---
 
 # 💻 System Requirements
 
-## Minimum
-
-| Component | Requirement |
-|------------|-------------|
-| CPU | Dual Core 64-bit |
-| RAM | 2 GB |
-| Storage | 20 GB |
-| GPU | Basic Graphics |
-
----
-
-## Recommended
-
-| Component | Requirement |
-|------------|-------------|
-| CPU | Quad Core |
-| RAM | 8 GB |
-| Storage | 50 GB SSD |
-| GPU | Any Modern GPU |
+| Minimum | Recommended |
+|---------|-------------|
+| Dual Core CPU | Quad Core CPU |
+| 2 GB RAM | 8 GB RAM |
+| 20 GB Storage | 50 GB SSD |
+| 64-bit System | Modern GPU |
 
 ---
 
 # 📥 Installation
 
-## Download ISO
-
-Download the latest release from the Releases page.
-
----
-
-## Create Bootable USB
-
-Using Rufus (Windows)
-
-Using Balena Etcher
-
-Using Ventoy
-
-Linux:
-
-```bash
-sudo dd if=lemonos.iso of=/dev/sdX bs=4M status=progress
-sync
-```
-
----
-
-## Boot
-
-1. Enter BIOS
-2. Select USB
-3. Boot Lemon OS
-4. Start Installer
-5. Follow Installation Wizard
-
----
-
-# 🖥 Default Applications
-
-- File Manager
-- Terminal
-- Firefox
-- Text Editor
-- Image Viewer
-- Media Player
-- PDF Viewer
-- Archive Manager
-- Calculator
-- Screenshot Tool
+1. Download the Lemon OS ISO.
+2. Create a bootable USB.
+3. Boot from USB.
+4. Launch the installer.
+5. Follow the installation wizard.
+6. Reboot and enjoy Lemon OS.
 
 ---
 
 # 📂 Project Structure
 
-```
-LemonOS
-├── airootfs
-├── efiboot
-├── isolinux
+```text
+LemonOS/
+├── airootfs/
+├── assets/
+├── efiboot/
+├── isolinux/
 ├── packages.x86_64
-├── profiledef.sh
 ├── pacman.conf
-├── assets
-│   ├── logo.png
-│   └── wallpaper.png
+├── profiledef.sh
 └── README.md
 ```
 
 ---
 
-# 🔄 Updating
+# 🛣 Roadmap
 
-```bash
-sudo pacman -Syu
-```
-
-Upgrade everything:
-
-```bash
-sudo pacman -Syu --noconfirm
-```
-
----
-
-# ❤️ Philosophy
-
-We believe Linux should be:
-
-- Simple
-- Beautiful
-- Fast
-- Secure
-- Reliable
-- Developer Friendly
-- Open Source
-
----
-
-# 🚀 Roadmap
-
-- [x] Custom ISO
 - [x] Custom Branding
-- [x] Custom Wallpaper
-- [x] Custom Boot Splash
+- [x] Custom ISO
+- [x] Custom Wallpapers
+- [x] Boot Splash
 - [ ] GUI Installer
-- [ ] Lemon Software Center
 - [ ] Lemon Store
-- [ ] Lemon Driver Manager
-- [ ] Automatic Snapshots
-- [ ] Backup Utility
+- [ ] Driver Manager
+- [ ] Snapshot Utility
 - [ ] Gaming Edition
-- [ ] Cybersecurity Edition
 - [ ] Developer Edition
+- [ ] Cybersecurity Edition
 
 ---
 
-# 🤝 Contributing
+# ❓ FAQ
 
-Contributions are welcome!
+## Is Lemon OS beginner friendly?
 
-1. Fork the repository
-2. Create your branch
+Yes. Lemon OS is designed to be easy to use while remaining powerful.
 
-```bash
-git checkout -b feature-name
-```
+## Is it based on Arch Linux?
 
-3. Commit changes
+Yes.
 
-```bash
-git commit -m "Add feature"
-```
+## Does it receive rolling updates?
 
-4. Push
-
-```bash
-git push origin feature-name
-```
-
-5. Open a Pull Request
+Yes.
 
 ---
 
-# 🐞 Bug Reports
+# 🤝 Support
 
-Found a bug?
+If you discover bugs or have suggestions, please open an issue in the official repository.
 
-Please open an issue with:
+---
 
-- System Version
-- Hardware
-- Steps to Reproduce
-- Screenshots
-- Logs
+# ⚖️ Copyright, Trademark & Usage Notice
+
+> Please respect the work behind Lemon OS.
+
+## 🍋 Lemon OS Branding
+
+The **Lemon OS** name, logo, artwork, wallpapers, icons, documentation, screenshots, and official branding are the intellectual property of the Lemon OS Project.
+
+These original assets are **not** released for unrestricted reuse.
+
+## 🚫 You MAY NOT
+
+- Copy or reuse the **Lemon OS** name for another operating system.
+- Copy, imitate or redistribute the Lemon OS logo.
+- Remove copyright notices.
+- Rebrand Lemon OS as your own project.
+- Claim Lemon OS or its original assets as your own work.
+- Use Lemon OS branding without written permission.
+
+## ✅ You MAY
+
+- Download official releases.
+- Report bugs.
+- Suggest improvements.
+- Share links to the official project.
+- Write articles or reviews with proper attribution.
+
+## Third-Party Software
+
+Lemon OS includes software from many open-source projects.
+
+Each third-party component remains licensed under its own license. This notice applies only to the original Lemon OS branding, artwork, documentation and other original project assets.
 
 ---
 
 # 📜 License
 
-Lemon OS is released under the **GNU General Public License v3 (GPLv3)**.
+Original Lemon OS branding, artwork, documentation and project assets are © 2026 Lemon OS Project.
+
+All rights reserved for the **Lemon OS** name, logo and branding.
+
+Third-party software included with Lemon OS remains subject to its respective license.
 
 ---
 
-# 👨‍💻 Developer
-
-**Aravind V**
-
-Cyber Security Student
-
-Linux Enthusiast
-
-Open Source Contributor
-
----
-
-# 🙏 Acknowledgements
+# ❤️ Acknowledgements
 
 Special thanks to:
 
 - Arch Linux
-- Linux Kernel Community
+- Linux Kernel Developers
 - GNU Project
-- Open Source Contributors
-- Everyone supporting Lemon OS ❤️
+- Open Source Community
+- Everyone supporting Lemon OS
 
 ---
 
@@ -344,9 +252,9 @@ Special thanks to:
 
 # 🍋 Lemon OS
 
-## **Simple • Powerful • Refreshing**
+### Simple • Powerful • Refreshing
 
-**Built with ❤️ on Arch Linux**
+**Built with ❤️ by the Lemon OS Project**
 
 © 2026 Lemon OS Project
 
