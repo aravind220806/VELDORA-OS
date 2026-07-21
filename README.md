@@ -13,10 +13,10 @@
 
 <br><br>
 
-<img src="https://img.shields.io/github/stars/aravind220806/LemonOS?style=social"/>
-<img src="https://img.shields.io/github/forks/aravind220806/LemonOS?style=social"/>
-<img src="https://img.shields.io/github/issues/aravind220806/LemonOS?color=FFDE59"/>
-<img src="https://img.shields.io/github/last-commit/aravind220806/LemonOS?color=8BC34A"/>
+<img src="https://img.shields.io/github/stars/aravind220806/LEMON-OS?style=social"/>
+<img src="https://img.shields.io/github/forks/aravind220806/LEMON-OS?style=social"/>
+<img src="https://img.shields.io/github/issues/aravind220806/LEMON-OS?color=FFDE59"/>
+<img src="https://img.shields.io/github/last-commit/aravind220806/LEMON-OS?color=8BC34A"/>
 
 </div>
 
@@ -622,8 +622,8 @@ Third-party software included with Lemon OS remains subject to its respective li
 
 <div align="center">
 
-<a href="https://star-history.com/#aravind220806/LemonOS&Date">
-  <img src="https://api.star-history.com/svg?repos=aravind220806/LemonOS&type=Date" width="70%"/>
+<a href="https://star-history.com/#aravind220806/LEMON-OS&Date">
+  <img src="https://api.star-history.com/svg?repos=aravind220806/LEMON-OS&type=Date" width="70%"/>
 </a>
 
 </div>
