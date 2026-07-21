@@ -39,7 +39,7 @@ for development, cybersecurity, learning, and daily productivity.
 |:---:|:---:|:---:|
 | 🍋 Beautiful modern desktop | ⚡ Lightweight & fast | 🔒 Security focused |
 | 💻 Developer ready | 🛡️ Cybersecurity ready | 📦 Rolling release |
-| 🚀 Optimized performance | | |
+| 🚀 Optimized performance | 🏝️ Lemon Island UI | 🤖 Sentinel companion |
 
 </div>
 
@@ -57,6 +57,35 @@ for development, cybersecurity, learning, and daily productivity.
 - 🧹 Clean layouts
 - 🖼️ Elegant wallpapers
 - 🔄 Responsive workflow
+
+</td></tr>
+</table>
+
+<br>
+
+## 🏝️ Lemon Island
+
+<div align="center">
+
+<img src="https://img.shields.io/badge/Feature-Dynamic%20Island%20Style-8BC34A?style=for-the-badge&labelColor=1a1a1a"/>
+
+</div>
+
+A pill-shaped, always-on-top status island at the top of the screen — Lemon OS's take on the
+Dynamic Island concept, built natively into the desktop shell (AGS/Astal) rather than bolted
+on as a widget.
+
+<table>
+<tr><td>
+
+- 🔔 Live notifications expand smoothly into the island instead of stacking as popups
+- 🎵 Media controls, VPN/connection status, and quick system indicators surface here
+- 🍋 Companion (Sentinel) status and alerts render directly in the island — an idle pulse
+  during normal operation, an animated expansion for warnings/alerts
+- 🎯 Context-aware: shrinks to a minimal pill when idle, expands only when there's something
+  worth showing
+- 🖱️ Click to expand into full detail (notification center, active companion alert, media
+  player) without leaving your current window
 
 </td></tr>
 </table>
@@ -90,6 +119,43 @@ for development, cybersecurity, learning, and daily productivity.
 - 🧱 Firewall ready
 - 🕵️ Privacy focused
 - ✅ Reliable package verification
+
+</td></tr>
+</table>
+
+<br>
+
+## 🤖 Sentinel — Your Companion
+
+<div align="center">
+
+<img src="https://img.shields.io/badge/AI-Free%20%7C%20Rules--Based-8BC34A?style=for-the-badge&labelColor=1a1a1a"/>
+<img src="https://img.shields.io/badge/Runs-100%25%20Offline-FFDE59?style=for-the-badge&labelColor=1a1a1a"/>
+
+</div>
+
+**Sentinel** is Lemon OS's built-in system companion — a background watcher that keeps an eye
+on your machine's health and security, and surfaces everything through **Lemon Island** and an
+original voice/text interface. It runs entirely offline, with zero AI/LLM involvement in any
+security decision — every check is deterministic (threshold → check → response), so behavior
+is predictable and auditable rather than a black box.
+
+<table>
+<tr><td>
+
+- 🩺 **System health** — CPU/GPU temp, battery health, disk SMART status, RAM/swap pressure,
+  failed services, and more, watched with near-zero idle overhead
+- 🕵️ **Intrusion detection** — file integrity monitoring, malware heuristics, boot integrity
+  checks, and local evidence collection if something suspicious happens
+- 🔌 **Access control** — default-deny USB policy and camera access locked to trusted
+  processes, with a clear authorize/deny flow instead of blind trust
+- 🙂 **Face-aware sentry** — optional webcam-based lock/unlock (Howdy-powered), tuned to avoid
+  false locks in crowded spaces
+- 🎙️ **Voice & text interface** — an original tactical-radio-style persona, with tiered
+  confirmation on anything sensitive (a quick voice command is fine for checking status; higher
+  -risk actions require a real confirmation step, never voice alone)
+- 🏝️ **Lives in Lemon Island** — Sentinel's alerts, status, and responses appear right in the
+  island at the top of your screen, not buried in a separate app
 
 </td></tr>
 </table>
@@ -197,6 +263,8 @@ LemonOS/
 - [ ] Custom Wallpapers
 - [ ] Boot Splash
 - [ ] GUI Installer
+- [ ] Lemon Island (Dynamic Island–style UI)
+- [ ] Sentinel Companion (system health, security, voice)
 - [ ] Lemon Store
 - [ ] Driver Manager
 - [ ] Snapshot Utility
