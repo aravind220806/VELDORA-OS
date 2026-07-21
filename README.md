@@ -196,7 +196,147 @@ is predictable and auditable rather than a black box.
 
 <br>
 
-## 📦 Package Manager
+## 🚀 Complete Feature Set
+
+Everything Lemon OS ships with, grouped by category. Click a section to expand.
+
+<details>
+<summary><b>🖥️ Installer & First Boot</b></summary>
+<br>
+
+- Custom themed installer (GUI/TUI) — disk setup, LUKS encryption (with optional recovery-key
+  generation), Btrfs subvolumes (`@`, `@home`, `@snapshots`)
+- Automatic hardware detection: CPU microcode, GPU driver stack (NVIDIA/AMD/Intel + hybrid
+  laptop switching), wireless chipset drivers (including monitor-mode support), fan control,
+  keyboard backlight, touchpad gestures, battery profiles — all detected once at install time,
+  shown as a summary you can override, zero ongoing background cost
+- Package profile choice: Full / Minimal / Custom (pick tool categories individually)
+- Bootloader choice (systemd-boot / GRUB / rEFInd) with snapshot-aware boot entries
+- Custom boot splash — one theme, your logo, your accent color, choice of animation style
+- Login screen choice (minimal or full-featured greeter) with matching theme, including
+  optional face-unlock right at login (not just the lock screen)
+- One accent color you pick once — flows through boot splash, bootloader, login screen,
+  desktop shell, and Sentinel's UI for a consistent look everywhere
+
+</details>
+
+<details>
+<summary><b>🏝️ Lemon Island & Desktop Shell</b></summary>
+<br>
+
+- Dynamic Island–style status pill (see above) for notifications, media, and companion alerts
+- Themed top bar, sidebar, and dock — categorized tool launcher (recon/web/pwn/forensics/
+  wireless) instead of a flat app grid
+- Workspaces pre-bound to tool categories, plus a quick-access scratchpad terminal
+
+</details>
+
+<details>
+<summary><b>🤖 Sentinel — System Health & Threat Detection</b></summary>
+<br>
+
+- Live system health monitoring: temperature, battery, disk, RAM/swap, failed services —
+  event-driven wherever possible, so it costs close to nothing while idle
+- File integrity monitoring, malware heuristic scoring (catches suspicious behavior even
+  without an exact signature match), boot integrity verification
+- Local flood/DDoS defense (rate-limiting, temporary local IP banning) and detection if your
+  own machine is being misused in a botnet
+- RAM-anomaly detection with safe remediation (restart a known leaking app with one click,
+  rather than blind auto-kill)
+- Evidence collection + auto-generated incident report, ready for submission to CERT-In/
+  cybercrime.gov.in — always local-only, never any action taken against a remote system
+
+</details>
+
+<details>
+<summary><b>🔒 Access Control</b></summary>
+<br>
+
+- USB: default-deny policy (USBGuard) — new devices are blocked until you explicitly approve
+  them, protecting against rogue-keyboard and rogue-storage attacks
+- Camera: locked to a whitelist of trusted apps, with a visible indicator whenever it's active
+- Face-aware sentry (Howdy, fully offline): auto-lock on an unrecognized face, tuned to avoid
+  false locks in busy/public spaces, always falls back to your password
+
+</details>
+
+<details>
+<summary><b>🎙️ Voice & Text Interface</b></summary>
+<br>
+
+- Original tactical-radio-style companion persona with an offline voice pipeline (wake word,
+  speech-to-text, text-to-speech) — no cloud calls
+- Voice app-launching ("open Burp", "open recon tools") with fuzzy matching for imperfect
+  speech recognition
+- Tiered confirmation for anything sensitive: everyday commands work instantly; higher-risk
+  actions (like authorizing a new USB device) require a quick verification step so a recording
+  of your voice can't be replayed to trigger something destructive
+- Every voice command has a matching typed command — voice is never the only way to do
+  something
+
+</details>
+
+<details>
+<summary><b>🚩 CTF & Engagement Productivity</b></summary>
+<br>
+
+- Auto flag-detector that watches for common CTF flag formats and logs them with context
+- Voice-started challenge timers with automatic session notes and a writeup skeleton generated
+  when you're done
+- Engagement profiles — one command switches your VPN, notes folder, workspace layout, and
+  even network identity, so client work and practice CTFs never mix
+- A snapshot prompt before risky commands (`dd`, `rm -rf`, disk operations) so mistakes are
+  recoverable
+
+</details>
+
+<details>
+<summary><b>🌐 Network Privacy & OPSEC</b></summary>
+<br>
+
+- MAC address and hostname randomization on every connection
+- Built-in Tor toggle and VPN-chaining support, with a real kill switch — if the tunnel drops,
+  traffic stops instead of silently leaking your real IP
+- DNS leak protection, optional RAM-only session mode, metadata stripping on file export
+- Hardened defaults: AppArmor profiles for common apps, Secure Boot support, optional
+  hardened browser profile
+
+</details>
+
+<details>
+<summary><b>🍋 Mascot</b></summary>
+<br>
+
+- An original animated companion character that reacts to what's happening on your system —
+  idle, alert, success, error, scanning, and more — living inside Lemon Island and the desktop
+
+</details>
+
+<details>
+<summary><b>💾 Backup, Sync & Update Safety</b></summary>
+<br>
+
+- Scheduled Btrfs snapshots with automatic cleanup, so they never silently fill your disk
+- Encrypted config/dotfiles backup and a one-command "clone this setup" export
+- Self-hosted (never cloud) encrypted sync across your own machines
+- Staged updates — changes are verified in a snapshot before becoming permanent, so a bad
+  update is never a bad afternoon
+
+</details>
+
+<details>
+<summary><b>♿ Accessibility & Quality-of-Life</b></summary>
+<br>
+
+- Quiet hours — alerts still logged, just not voiced, for focused work or recording sessions
+- Screen-recording auto-blur for sensitive on-screen info (API keys, IPs, tokens)
+- Session-length wellbeing nudges during long work stretches
+
+</details>
+
+<br>
+
+
 
 Lemon OS uses Arch Linux's package manager.
 
