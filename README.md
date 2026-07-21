@@ -22,12 +22,71 @@
 
 <br>
 
+## 📑 Table of Contents
+
+<details>
+<summary>Click to expand</summary>
+
+- [📖 About](#-about)
+- [🆚 Why Lemon OS](#-why-lemon-os)
+- [✨ Highlights](#-highlights)
+- [🖥️ Desktop Experience](#️-desktop-experience)
+- [🏝️ Lemon Island](#️-lemon-island)
+- [⚡ Performance](#-performance)
+- [🔐 Security](#-security)
+- [🤖 Sentinel — Your Companion](#-sentinel--your-companion)
+- [👨‍💻 Development Tools](#-development-tools)
+- [🛡️ Cybersecurity Tools](#️-cybersecurity-tools-optional-packages)
+- [🚀 Complete Feature Set](#-complete-feature-set)
+- [⚠️ Known Limitations](#️-known-limitations)
+- [📦 Package Manager](#-package-manager)
+- [💻 System Requirements](#-system-requirements)
+- [📥 Installation](#-installation)
+- [📂 Project Structure](#-project-structure)
+- [🛣️ Roadmap](#️-roadmap)
+- [❓ FAQ](#-faq)
+- [🤝 Contributing](#-contributing)
+- [🤝 Support](#-support)
+- [⚖️ Copyright, Trademark & Usage Notice](#️-copyright-trademark--usage-notice)
+- [📜 License](#-license)
+- [⭐ Star History](#-star-history)
+- [❤️ Acknowledgements](#️-acknowledgements)
+
+</details>
+
+<br>
+
 ## 📖 About
 
 **Lemon OS** is a clean, lightweight, and performance-focused operating system based on Arch
 Linux — built for developers, cybersecurity professionals, ethical hackers, students, and
 Linux enthusiasts. It delivers a beautiful desktop experience while providing powerful tools
 for development, cybersecurity, learning, and daily productivity.
+
+<br>
+
+## 🆚 Why Lemon OS
+
+<div align="center">
+
+| | 🍋 **Lemon OS** | Kali Linux | Parrot OS | BlackArch |
+|---|:---:|:---:|:---:|:---:|
+| Base | Arch (rolling) | Debian | Debian | Arch (rolling) |
+| Desktop | Hyprland-only, GUI-first | Multiple (heavier defaults) | Multiple | Minimal/DIY |
+| Built-in AI/rules companion | ✅ Sentinel | ❌ | ❌ | ❌ |
+| Dynamic Island–style UI | ✅ Lemon Island | ❌ | ❌ | ❌ |
+| Default-deny USB policy | ✅ | ❌ (manual setup) | ❌ (manual setup) | ❌ (manual setup) |
+| Voice interface | ✅ Offline, tiered confirmation | ❌ | ❌ | ❌ |
+| Face-aware lock (crowd-safe) | ✅ | ❌ | ❌ | ❌ |
+| Themed GUI installer | ✅ | ✅ | ✅ | ❌ (manual Arch install) |
+| CTF workflow tooling (flag detector, writeups) | ✅ | ❌ | ❌ | ❌ |
+| Idle-performance-first design | ✅ (event-driven, capped daemons) | Varies | Varies | Varies |
+
+*Kali/Parrot/BlackArch remain excellent, mature, widely-trusted distros — this table reflects
+what's different about Lemon OS's approach, not a claim that it replaces them for every use
+case.*
+
+</div>
 
 <br>
 
@@ -336,7 +395,41 @@ Everything Lemon OS ships with, grouped by category. Click a section to expand.
 
 <br>
 
+## ⚠️ Known Limitations
 
+Lemon OS is built to be honest about what it can and can't do — no security product should
+overclaim. Worth knowing before you rely on it:
+
+<table>
+<tr><td>
+
+- 🔌 **USB Killer protection**: Sentinel's USB policy stops rogue-keyboard and rogue-storage
+  attacks, but it **cannot** stop a USB Killer–style electrical/voltage attack — that's a
+  hardware problem (needs an optically isolated hub or a port blocker), not something any
+  software can intercept in time
+- 🕵️ **Attacker attribution**: incident reports include IP/WHOIS lookups, but this identifies
+  the *network* an attack came from, not necessarily the *person* — traffic is often routed
+  through VPNs or compromised third-party systems, so treat this as an investigative lead, not
+  a confirmed identity
+- 📷 **Face-unlock**: webcam-based face recognition (Howdy) is inherently more spoofable than
+  dedicated depth-sensing hardware like Apple's Face ID — Lemon OS adds liveness checks to
+  reduce this, but it's not equivalent to depth-sensor security, and password fallback always
+  remains available
+- 🚫 **No counter-attack capability, by design**: Sentinel detects, blocks, and logs locally —
+  it never scans, exploits, or takes any action against a remote attacker's system.
+  Unauthorized access back is illegal even when you were attacked first, and Lemon OS won't do
+  it under any framing
+- 🧠 **No AI/LLM in security decisions**: every health/security check is deterministic
+  rule-based logic, not a language model — this is intentional, for predictable and auditable
+  behavior, but it means Sentinel won't "understand" novel attacks outside its rule set the way
+  a general AI model might attempt to
+
+</td></tr>
+</table>
+
+<br>
+
+## 📦 Package Manager
 
 Lemon OS uses Arch Linux's package manager.
 
@@ -436,6 +529,31 @@ Yes.
 
 <br>
 
+## 🤝 Contributing
+
+Contributions are welcome — Lemon OS is built in the open.
+
+<table>
+<tr><td>
+
+- 🐛 **Found a bug?** Open an issue with steps to reproduce, your hardware, and any relevant
+  logs
+- 💡 **Have an idea?** Open a feature request issue before submitting a large PR, so we can
+  align on direction first
+- 🔧 **Want to contribute code?** Fork the repo, create a feature branch, and open a pull
+  request — smaller, focused PRs are easier to review than one large one
+- 📖 **Improve the docs?** Documentation fixes and clarifications are always welcome, no
+  issue needed for small typo/wording fixes
+
+</td></tr>
+</table>
+
+**Code of Conduct**: be respectful, be constructive, and assume good faith. Harassment,
+discrimination, or personal attacks of any kind are not tolerated. Disagree with an idea, not
+with a person.
+
+<br>
+
 ## 🤝 Support
 
 If you discover bugs or have suggestions, please open an issue in the official repository.
@@ -497,6 +615,18 @@ Original Lemon OS branding, artwork, documentation, and project assets are
 **© 2026 Lemon OS Project**. All rights reserved for the Lemon OS name, logo, and branding.
 
 Third-party software included with Lemon OS remains subject to its respective license.
+
+<br>
+
+## ⭐ Star History
+
+<div align="center">
+
+<a href="https://star-history.com/#aravind220806/LemonOS&Date">
+  <img src="https://api.star-history.com/svg?repos=aravind220806/LemonOS&type=Date" width="70%"/>
+</a>
+
+</div>
 
 <br>
 
