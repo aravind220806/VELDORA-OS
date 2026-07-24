@@ -1,37 +1,22 @@
 <div align="center">
 
-```
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1a2e,25:2D1B69,50:5B3E9A,75:2CB1FF,100:1a1a2e&height=220&section=header&text=VELDORA%20OS&fontSize=60&fontColor=2CB1FF&animation=fadeIn&fontAlignY=38&desc=Forged%20in%20the%20Storm&descAlignY=58&descAlign=50&descColor=7F5AF0"/>
 
- _   _ _____ _    ______ ___________  ___    _____ _____ 
-| | | |  ___| |   |  _  \  _  | ___ \/ _ \  |  _  /  ___|
-| | | | |__ | |   | | | | | | | |_/ / /_\ \ | | | \ `--. 
-| | | |  __|| |   | | | | | | |    /|  _  | | | | |`--. \
-\ \_/ / |___| |___| |/ /\ \_/ / |\ \| | | | \ \_/ /\__/ /
- \___/\____/\_____/___/  \___/\_| \_\_| |_/  \___/\____/ 
-                                                          
-                     ___  ____ 
-                    / _ \/ ___|
-                   | | | \___ \
-                   | |_| |___) |
-                    \___/|____/ 
-
-```
-
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=18&pause=800&color=39FF14&background=0D1117&center=true&vCenter=true&width=800&lines=root%40veldora%3A~%24+whoami;an+arch-based+os+for+developers+%26+cybersecurity+pros;root%40veldora%3A~%24+cat+status.txt;system+online.+sentinel+active.+ready." alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=700&color=2CB1FF&vCenter=true&width=850&lines=root%40veldora%3A~%24+./awaken.sh;%5B*%5D+storm+detected...+summoning+kernel;%5B*%5D+sentinel+online.+wards+active.;%5B%2B%5D+veldora+os+has+awakened.;an+arch-based+os+for+developers+%26+cybersecurity+pros." alt="Typing SVG" />
 
 <br>
 
-<img src="https://img.shields.io/badge/version-0.1--dev-39FF14?style=for-the-badge&labelColor=0D1117"/>
-<img src="https://img.shields.io/badge/base-arch%20linux-39FF14?style=for-the-badge&labelColor=0D1117&logo=archlinux&logoColor=39FF14"/>
-<img src="https://img.shields.io/badge/arch-x86__64-39FF14?style=for-the-badge&labelColor=0D1117"/>
-<img src="https://img.shields.io/badge/status-in%20development-39FF14?style=for-the-badge&labelColor=0D1117"/>
+<img src="https://img.shields.io/static/v1?label=version&message=0.1-dev&color=2CB1FF&style=flat-square&labelColor=1a1a2e"/>
+<img src="https://img.shields.io/static/v1?label=base&message=Arch%20Linux&color=7F5AF0&style=flat-square&labelColor=1a1a2e"/>
+<img src="https://img.shields.io/static/v1?label=arch&message=x86_64&color=2CB1FF&style=flat-square&labelColor=1a1a2e"/>
+<img src="https://img.shields.io/static/v1?label=status&message=in%20development&color=7F5AF0&style=flat-square&labelColor=1a1a2e"/>
 
 <br><br>
 
-<img src="https://img.shields.io/github/stars/aravind220806/VELDORA-OS?style=flat-square&color=39FF14&labelColor=0D1117"/>
-<img src="https://img.shields.io/github/forks/aravind220806/VELDORA-OS?style=flat-square&color=39FF14&labelColor=0D1117"/>
-<img src="https://img.shields.io/github/issues/aravind220806/VELDORA-OS?style=flat-square&color=39FF14&labelColor=0D1117"/>
-<img src="https://img.shields.io/github/last-commit/aravind220806/VELDORA-OS?style=flat-square&color=39FF14&labelColor=0D1117"/>
+<img src="https://img.shields.io/github/stars/aravind220806/VELDORA-OS?style=flat-square&color=2CB1FF&labelColor=1a1a2e"/>
+<img src="https://img.shields.io/github/forks/aravind220806/VELDORA-OS?style=flat-square&color=7F5AF0&labelColor=1a1a2e"/>
+<img src="https://img.shields.io/github/issues/aravind220806/VELDORA-OS?style=flat-square&color=2CB1FF&labelColor=1a1a2e"/>
+<img src="https://img.shields.io/github/last-commit/aravind220806/VELDORA-OS?style=flat-square&color=7F5AF0&labelColor=1a1a2e"/>
 
 </div>
 
@@ -42,18 +27,20 @@ root@veldora:~$ neofetch
 ```
 
 ```text
-        /\          root@veldora
-       /  \         ------------
-      /    \        OS: Veldora OS x86_64
-     /------\       Base: Arch Linux (rolling)
-    /        \      DE: Hyprland (Wayland)
-   /   ARCH   \     Shell: zsh
-  /------------\    Companion: Sentinel [ACTIVE]
- /              \   Island: Veldora Island [ON]
-/________________\  Theme: Terminal / Dark
-                     Security: USBGuard, Sentinel, LUKS
-                     Uptime: building since 2026
+        ⚡ /\ ⚡          root@veldora
+         /  \            ------------
+        / /\ \           OS: Veldora OS x86_64
+       / /  \ \          Base: Arch Linux (rolling)
+      /--STORM--\        DE: Hyprland (Wayland)
+     /   DRAGON   \      Shell: zsh
+    /--------------\     Companion: Sentinel [ACTIVE]
+   /                \    Island: Veldora Island [ON]
+  /__________________\   Theme: Storm / Dark-Violet
+       ⚡        ⚡        Security: USBGuard, Sentinel, LUKS
+                          Uptime: forged since 2026
 ```
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:1a1a2e,50:2CB1FF,100:1a1a2e&height=3&width=1000"/>
 
 <br>
 
@@ -83,6 +70,7 @@ root@veldora:~$ neofetch
 - [`contributing.md`](#-contributingmd)
 - [`support.md`](#-supportmd)
 - [`license.txt`](#-licensetxt)
+- [`stats.live`](#-statslive)
 - [`stars.graph`](#-starsgraph)
 - [`credits.txt`](#-creditstxt)
 
@@ -93,13 +81,14 @@ root@veldora:~$ neofetch
 ## 📖 `$ cat about.txt`
 
 ```text
-Veldora OS is a clean, lightweight, and performance-focused operating system
-based on Arch Linux — built for developers, cybersecurity professionals,
-ethical hackers, students, and Linux enthusiasts.
+Veldora OS is a clean, lightweight, and storm-fast operating system based on
+Arch Linux — built for developers, cybersecurity professionals, ethical
+hackers, students, and Linux enthusiasts.
 
-It delivers a beautiful terminal-first desktop experience while providing
-powerful tools for development, cybersecurity, learning, and daily
-productivity.
+Named for the storm — the OS aims to feel like one: fast to boot, sharp to
+use, and quietly powerful underneath. It delivers a beautiful terminal-first
+desktop experience while providing serious tools for development,
+cybersecurity, learning, and daily productivity.
 ```
 
 <br>
@@ -132,7 +121,7 @@ note: kali/parrot/blackarch remain mature, trusted distros.
 ## ✨ `$ cat highlights.log`
 
 ```text
-[OK] beautiful terminal-first desktop
+[OK] beautiful storm-dark, terminal-first desktop
 [OK] lightweight & fast
 [OK] security focused by default
 [OK] developer ready out of the box
@@ -143,17 +132,19 @@ note: kali/parrot/blackarch remain mature, trusted distros.
 [OK] sentinel — offline companion, zero ai in security path
 ```
 
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:1a1a2e,50:7F5AF0,100:1a1a2e&height=3&width=1000"/>
+
 <br>
 
 ## 🖥️ `$ desktop.conf`
 
 ```yaml
-ui:            modern, terminal-inspired
-theme:         dark
+ui:            terminal-inspired, storm-dark
+theme:         violet / electric-blue on near-black
 animations:    smooth
 startup:       fast
 layout:        clean
-wallpapers:    curated
+wallpapers:    curated (storm & lightning motifs)
 workflow:      responsive
 ```
 
@@ -166,7 +157,7 @@ $ systemctl status veldora-island
 
 ● veldora-island.service - Dynamic status island
    Loaded: enabled
-   Active: active (running)
+   Active: active (running) ⚡
 
 A pill-shaped, always-on-top status island at the top of the screen —
 Veldora OS's take on the Dynamic Island concept, built natively into the
@@ -193,6 +184,8 @@ desktop shell (AGS/Astal) instead of bolted on as a widget.
 [BENCH] update channel ............ stable rolling
 ```
 
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:1a1a2e,50:2CB1FF,100:1a1a2e&height=3&width=1000"/>
+
 <br>
 
 ## 🔐 `$ security.audit`
@@ -210,18 +203,20 @@ desktop shell (AGS/Astal) instead of bolted on as a widget.
 ## 🤖 `$ sentinel.daemon` — Your Companion
 
 ```
-
- ___ ___ _  _ _____ ___ _  _ ___ _    
-/ __| __| \| |_   _|_ _| \| | __| |   
-\__ \ _|| .` | | |  | || .` | _|| |__ 
-|___/___|_|\_| |_| |___|_|\_|___|____|
-
+          ⚡
+      .-'   '-.
+     /  o   o   \
+    |     ^      |     SENTINEL
+     \   \_/    /      watching. always.
+      '-.___.-'
+        |   |
+       ⚡     ⚡
 ```
 
 <div align="center">
 
-<img src="https://img.shields.io/badge/ai-rules--based%2C%20not%20llm-39FF14?style=for-the-badge&labelColor=0D1117"/>
-<img src="https://img.shields.io/badge/runs-100%25%20offline-39FF14?style=for-the-badge&labelColor=0D1117"/>
+<img src="https://img.shields.io/static/v1?label=ai&message=rules-based%2C%20not%20llm&color=2CB1FF&style=flat-square&labelColor=1a1a2e"/>
+<img src="https://img.shields.io/static/v1?label=runs&message=100%25%20offline&color=7F5AF0&style=flat-square&labelColor=1a1a2e"/>
 
 </div>
 
@@ -251,8 +246,8 @@ $ sentinel --status
 
 <br><br>
 
-<img src="https://img.shields.io/badge/GCC-0D1117?style=flat-square&logo=gnu&logoColor=39FF14"/>
-<img src="https://img.shields.io/badge/Clang-0D1117?style=flat-square&logo=llvm&logoColor=39FF14"/>
+<img src="https://img.shields.io/badge/GCC-1a1a2e?style=flat-square&logo=gnu&logoColor=2CB1FF"/>
+<img src="https://img.shields.io/badge/Clang-1a1a2e?style=flat-square&logo=llvm&logoColor=2CB1FF"/>
 
 </div>
 
@@ -262,18 +257,20 @@ $ sentinel --status
 
 <div align="center">
 
-![Nmap](https://img.shields.io/badge/-nmap-0D1117?style=flat-square&logo=nmap&logoColor=39FF14)
-![Wireshark](https://img.shields.io/badge/-wireshark-0D1117?style=flat-square&logo=wireshark&logoColor=39FF14)
-![Burp Suite](https://img.shields.io/badge/-burpsuite-0D1117?style=flat-square&logo=burpsuite&logoColor=39FF14)
-![Metasploit](https://img.shields.io/badge/-metasploit-0D1117?style=flat-square&logo=metasploit&logoColor=39FF14)
-![Aircrack--ng](https://img.shields.io/badge/-aircrack--ng-0D1117?style=flat-square&logo=linux&logoColor=39FF14)
-![SQLMap](https://img.shields.io/badge/-sqlmap-0D1117?style=flat-square&logo=sqlite&logoColor=39FF14)
-![Gobuster](https://img.shields.io/badge/-gobuster-0D1117?style=flat-square&logo=go&logoColor=39FF14)
-![Hydra](https://img.shields.io/badge/-hydra-0D1117?style=flat-square&logo=hydra&logoColor=39FF14)
-![Nikto](https://img.shields.io/badge/-nikto-0D1117?style=flat-square&logo=perl&logoColor=39FF14)
-![John the Ripper](https://img.shields.io/badge/-john%20the%20ripper-0D1117?style=flat-square&logo=hackaday&logoColor=39FF14)
+![Nmap](https://img.shields.io/static/v1?label=&message=Nmap&color=1a1a2e&style=flat-square&labelColor=1a1a2e)
+![Wireshark](https://img.shields.io/static/v1?label=&message=Wireshark&color=1a1a2e&style=flat-square&labelColor=1a1a2e&logo=wireshark&logoColor=2CB1FF)
+![Burp Suite](https://img.shields.io/static/v1?label=&message=Burp%20Suite&color=1a1a2e&style=flat-square&labelColor=1a1a2e)
+![Metasploit](https://img.shields.io/static/v1?label=&message=Metasploit&color=1a1a2e&style=flat-square&labelColor=1a1a2e)
+![Aircrack--ng](https://img.shields.io/static/v1?label=&message=Aircrack-ng&color=1a1a2e&style=flat-square&labelColor=1a1a2e)
+![SQLMap](https://img.shields.io/static/v1?label=&message=SQLMap&color=1a1a2e&style=flat-square&labelColor=1a1a2e)
+![Gobuster](https://img.shields.io/static/v1?label=&message=Gobuster&color=1a1a2e&style=flat-square&labelColor=1a1a2e&logo=go&logoColor=2CB1FF)
+![Hydra](https://img.shields.io/static/v1?label=&message=Hydra&color=1a1a2e&style=flat-square&labelColor=1a1a2e)
+![Nikto](https://img.shields.io/static/v1?label=&message=Nikto&color=1a1a2e&style=flat-square&labelColor=1a1a2e&logo=perl&logoColor=2CB1FF)
+![John the Ripper](https://img.shields.io/static/v1?label=&message=John%20the%20Ripper&color=1a1a2e&style=flat-square&labelColor=1a1a2e)
 
 </div>
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:1a1a2e,50:5B3E9A,100:1a1a2e&height=3&width=1000"/>
 
 <br>
 
@@ -457,8 +454,8 @@ no security product should overclaim.
 
 [!] face-unlock
     webcam-based (howdy) is more spoofable than dedicated depth
-    sensors like face id. liveness checks reduce this but don't
-    match depth-sensor security. password fallback always available
+    sensors. liveness checks reduce this but don't match
+    depth-sensor security. password fallback always available
 
 [!] no counter-attack capability, by design
     sentinel detects, blocks, and logs locally. it never scans,
@@ -470,6 +467,8 @@ no security product should overclaim.
     intentionally — predictable and auditable, but won't
     "understand" novel attacks outside its rule set
 ```
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:1a1a2e,50:2CB1FF,100:1a1a2e&height=3&width=1000"/>
 
 <br>
 
@@ -673,6 +672,21 @@ third-party software included with veldora os remains subject to
 its respective license.
 ```
 
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:1a1a2e,50:7F5AF0,100:1a1a2e&height=3&width=1000"/>
+
+<br>
+
+## 📊 `$ stats.live`
+
+<div align="center">
+
+<img width="49%" src="https://github-readme-stats.vercel.app/api?username=aravind220806&show_icons=true&theme=tokyonight&hide_border=true&bg_color=1a1a2e&title_color=2CB1FF&icon_color=7F5AF0&text_color=c9d1d9"/>
+<img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aravind220806&layout=compact&theme=tokyonight&hide_border=true&bg_color=1a1a2e&title_color=2CB1FF&text_color=c9d1d9"/>
+
+<img width="65%" src="https://streak-stats.demolab.com?user=aravind220806&theme=tokyonight&hide_border=true&background=1a1a2e&stroke=2CB1FF&ring=7F5AF0&fire=2CB1FF&currStreakLabel=2CB1FF"/>
+
+</div>
+
 <br>
 
 ## ⭐ `$ stars.graph`
@@ -710,5 +724,7 @@ root@veldora:~$ _
 ```
 
 **© 2026 Veldora OS Project**
+
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1a2e,25:2CB1FF,50:5B3E9A,75:2D1B69,100:1a1a2e&height=180&section=footer&animation=twinkling"/>
 
 </div>
