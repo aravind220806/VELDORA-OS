@@ -1,0 +1,10 @@
+[Unit]
+Description=Prepare Veldora live account
+Before=greetd.service
+ConditionPathExists=/run/archiso
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/veldora-live-setup
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target

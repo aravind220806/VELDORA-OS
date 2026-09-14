@@ -1,0 +1,7 @@
+NAME="Veldora OS"
+PRETTY_NAME="Veldora OS (Experimental Live)"
+ID=veldora
+ID_LIKE=arch
+BUILD_ID=rolling
+HOME_URL="https://github.com/aravind220806/VELDORA-OS"
+DOCUMENTATION_URL="https://github.com/aravind220806/VELDORA-OS/blob/main/docs/BUILD.md"

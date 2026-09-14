@@ -1,0 +1,20 @@
+window { background: #10181d; color: #e7efee; }
+headerbar { background: #162229; border-bottom: 1px solid #31434b; }
+.title { font-size: 27px; font-weight: bold; }
+.title-small { font-size: 21px; font-weight: bold; margin-top: 24px; }
+.eyebrow { font-family: monospace; font-size: 11px; color: #82d9bb; }
+.muted { color: #acbec4; font-size: 13px; }
+.tool-name { font-size: 17px; font-weight: bold; }
+.status { color: #82d9bb; font-size: 12px; }
+.mono { font-family: monospace; color: #82d9bb; }
+list, viewport { background: transparent; }
+list row { border-bottom: 1px solid #293b43; }
+list row:hover { background: #1b2a31; }
+button { background: #203a3c; color: #dcfff2; border: 1px solid #3e6260; padding: 9px 16px; box-shadow: none; }
+button:hover { background: #2b504c; }
+button:disabled { color: #94a2a8; background: #202a30; border-color: #34434a; }
+entry { background: #18252c; color: #edf5f4; padding: 10px; border: 1px solid #40525b; }
+button:focus, entry:focus { border-color: #91f0c9; }
+stacksidebar row:selected { background: #25433f; color: #afffe0; }
+textview text { background: #142027; color: #d3e2e5; }
+textview { padding: 16px; }

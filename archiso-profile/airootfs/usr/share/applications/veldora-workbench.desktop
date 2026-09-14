@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Veldora Security Workbench
+Comment=Security tools, engagement folders and local diagnostics
+Exec=veldora-workbench
+Icon=security-high-symbolic
+Terminal=false
+Categories=System;Security;
+Keywords=security;forensics;network;CTF;pentest;
+StartupNotify=true

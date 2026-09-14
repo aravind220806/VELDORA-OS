@@ -21,6 +21,39 @@
 
 <br>
 
+## Current implementation — September 2026
+
+This repository now contains an **experimental Hyprland live ISO project** with an
+compact Hyprland desktop and expandable Veldora Island. The architecture below
+remains the long-term design; it is **not a list of shipped security protections**.
+
+Implemented: Archiso v90 profile, live-user login, NetworkManager, Lua Hyprland theme,
+GTK island with desktop notifications and media controls, audio/brightness feedback,
+workspace/status pills, idle date/time island, configurable wallpaper, build scripts, and static tests.
+
+**An ISO has not yet been built or boot-tested.** A custom installer, Sentinel,
+USB/camera enforcement, voice control, Veldora Island security alerts, encryption
+installation, and Secure Boot signing are not implemented. The initial shell uses
+Python/GTK3, not AGS/Astal. The comparison and feature sections below describe targets.
+
+```bash
+sudo pacman -Syu --needed archiso python
+python scripts/validate.py
+python -m unittest discover -s tests -v
+sudo ./scripts/build-iso.sh
+```
+
+Read [build instructions and boot-test checklist](docs/BUILD.md). Live credentials:
+`liveuser` / `veldora`, with passwordless sudo for this disposable live session.
+
+Actual shell previews (isolated Hyprland session, not an ISO boot):
+
+![Veldora desktop](docs/screenshots/desktop.png)
+
+[Expanded island preview](docs/screenshots/island.png) · [Validation results](docs/VALIDATION.md)
+
+---
+
 ## 📑 Table of Contents
 
 - [Overview](#-overview)
@@ -181,7 +214,8 @@ flowchart TD
 
 **Why this matters**: a voice-only trigger for a security action is vulnerable to replay
 attacks — a recording of "authorize device" could be played back. Randomizing the challenge
-phrase per request defeats that, without requiring biometric hardware.
+phrase can reduce simple prerecorded replay, but is not strong authentication against
+live relay or voice synthesis. Privileged actions will require OS-backed authentication.
 
 <br>
 
@@ -245,7 +279,7 @@ state on a timer — the difference between near-zero idle cost and a measurable
 
 **Crowd-aware face detection**
 An early design (any unknown face in frame → lock) would be unusable in public/busy spaces.
-The shipped logic requires primary-position framing, sustained duration, and escalates
+The proposed logic requires primary-position framing, sustained duration, and escalates
 (warn → lock) instead of triggering instantly — a good example of a feature that needed a
 second design pass after stress-testing the naive version mentally against real use.
 
@@ -383,6 +417,9 @@ Documented deliberately — a security project should be explicit about its boun
 
 ## 📂 Project Structure
 
+Current source: `archiso-profile/`, `shell/`, `scripts/`, `tests/`, and `docs/`.
+The extended layout below is planned:
+
 ```
 VeldoraOS/
 ├── archiso-profile/       # archiso build profile
@@ -423,14 +460,9 @@ VeldoraOS/
 
 ## 📥 Installation
 
-```bash
-# 1. Download the Veldora OS ISO
-# 2. Create a bootable USB
-# 3. Boot from USB
-# 4. Launch the installer
-# 5. Follow the installation wizard
-# 6. Reboot into Veldora OS
-```
+Build from source using [docs/BUILD.md](docs/BUILD.md). There is no published ISO or
+Veldora installation wizard yet. Test the resulting live image in a VM before
+considering physical hardware; the supplied VM script attaches no host disks.
 
 <br>
 
@@ -451,7 +483,8 @@ Be respectful, be constructive, assume good faith.
 
 Original Veldora OS branding, artwork, documentation, and project assets are
 **© 2026 Veldora OS Project**. Third-party software included with Veldora OS remains subject
-to its own respective license. See `LICENSE` for full terms.
+to its own respective license. An original-project license has not yet been selected. The copied Archiso profile
+retains its upstream license in `docs/ARCHISO-LICENSE`.
 
 <br>
 

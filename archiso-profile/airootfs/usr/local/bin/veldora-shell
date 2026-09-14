@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+case "${1:-}" in
+    --legacy) shift; exec python /usr/share/veldora/shell/main.py "$@" ;;
+    --toggle) exec qs ipc -c ii call veldora toggle ;;
+    --control)
+        case "${2:-}" in
+            volume-up) wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ ;;
+            volume-down) wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- ;;
+            mute) wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ;;
+            brightness-up) brightnessctl --class=backlight set +5% ;;
+            brightness-down) brightnessctl --class=backlight --min-value=1 set 5%- ;;
+            *) echo 'Unknown control' >&2; exit 2 ;;
+        esac
+        ;;
+    '') exec qs -c ii ;;
+    *) echo 'Usage: veldora-shell [--toggle|--control ACTION|--legacy]' >&2; exit 2 ;;
+esac
