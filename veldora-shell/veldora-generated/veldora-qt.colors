@@ -1,0 +1,79 @@
+[General]
+ColorScheme = Veldora
+Name = Veldora
+AccentColor = 255,138,143
+widgetStyle = Breeze
+
+[KDE]
+LookAndFeelPackage = org.kde.breezedark.desktop
+
+[Colors:Window]
+BackgroundNormal = 36,36,40
+BackgroundAlternate = 16,16,18
+ForegroundNormal = 242,242,244
+ForegroundInactive = 154,154,163
+ForegroundLink = 255,138,143
+ForegroundNegative = 255,90,95
+DecorationFocus = 255,138,143
+DecorationHover = 255,138,143
+
+[Colors:View]
+BackgroundNormal = 26,26,29
+BackgroundAlternate = 16,16,18
+ForegroundNormal = 242,242,244
+ForegroundInactive = 154,154,163
+ForegroundLink = 255,138,143
+ForegroundNegative = 255,90,95
+DecorationFocus = 255,138,143
+DecorationHover = 255,138,143
+
+[Colors:Button]
+BackgroundNormal = 36,36,40
+BackgroundAlternate = 16,16,18
+ForegroundNormal = 242,242,244
+ForegroundInactive = 154,154,163
+ForegroundLink = 255,138,143
+ForegroundNegative = 255,90,95
+DecorationFocus = 255,138,143
+DecorationHover = 255,138,143
+
+[Colors:Tooltip]
+BackgroundNormal = 36,36,40
+BackgroundAlternate = 16,16,18
+ForegroundNormal = 242,242,244
+ForegroundInactive = 154,154,163
+ForegroundLink = 255,138,143
+ForegroundNegative = 255,90,95
+DecorationFocus = 255,138,143
+DecorationHover = 255,138,143
+
+[Colors:Complementary]
+BackgroundNormal = 36,36,40
+BackgroundAlternate = 16,16,18
+ForegroundNormal = 242,242,244
+ForegroundInactive = 154,154,163
+ForegroundLink = 255,138,143
+ForegroundNegative = 255,90,95
+DecorationFocus = 255,138,143
+DecorationHover = 255,138,143
+
+[Colors:Header]
+BackgroundNormal = 36,36,40
+BackgroundAlternate = 16,16,18
+ForegroundNormal = 242,242,244
+ForegroundInactive = 154,154,163
+ForegroundLink = 255,138,143
+ForegroundNegative = 255,90,95
+DecorationFocus = 255,138,143
+DecorationHover = 255,138,143
+
+[Colors:Selection]
+BackgroundNormal = 255,138,143
+BackgroundAlternate = 16,16,18
+ForegroundNormal = 16,16,18
+ForegroundInactive = 154,154,163
+ForegroundLink = 255,138,143
+ForegroundNegative = 255,90,95
+DecorationFocus = 255,138,143
+DecorationHover = 255,138,143
+

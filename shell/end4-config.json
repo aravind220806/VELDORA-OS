@@ -1,17 +1,82 @@
 {
   "panelFamily": "ii",
-  "policies": {"ai": 0, "weeb": 0},
+  "policies": {
+    "ai": 0,
+    "weeb": 0
+  },
   "appearance": {
     "fakeScreenRounding": 0,
-    "fonts": {"main": "Noto Sans", "numbers": "Noto Sans", "title": "Noto Sans", "reading": "Noto Sans", "expressive": "Noto Sans"},
-    "transparency": {"enable": true, "automatic": false, "backgroundTransparency": 0.12, "contentTransparency": 0.08},
-    "wallpaperTheming": {"enableAppsAndShell": true, "enableQtApps": false, "enableTerminal": false}
+    "fonts": {
+      "main": "Noto Sans",
+      "numbers": "Noto Sans",
+      "title": "Noto Sans",
+      "reading": "Noto Sans",
+      "expressive": "Noto Sans"
+    },
+    "transparency": {
+      "enable": true,
+      "automatic": false,
+      "backgroundTransparency": 0.12,
+      "contentTransparency": 0.08
+    },
+    "wallpaperTheming": {
+      "enableAppsAndShell": false,
+      "enableQtApps": false,
+      "enableTerminal": false
+    }
   },
-  "bar": {"showBackground": false, "cornerStyle": 2, "verbose": false, "workspaces": {"shown": 10, "alwaysShowNumbers": true, "showAppIcons": false}, "weather": {"enable": false}},
-  "background": {"widgets": {"clock": {"enable": false}, "weather": {"enable": false}}},
-  "dock": {"enable": false},
-  "battery": {"automaticSuspend": false},
-  "conflictKiller": {"autoKillTrays": false, "autoKillNotificationDaemons": false},
-  "apps": {"terminal": "foot", "fileManager": "thunar", "network": "foot -e nmtui", "networkEthernet": "foot -e nmtui", "volumeMixer": "pavucontrol", "taskManager": "foot -e top"},
-  "time": {"format": "hh:mm", "shortDateFormat": "ddd, dd/MM"}
+  "bar": {
+    "showBackground": false,
+    "cornerStyle": 2,
+    "verbose": false,
+    "workspaces": {
+      "shown": 10,
+      "alwaysShowNumbers": true,
+      "showAppIcons": false
+    },
+    "weather": {
+      "enable": false
+    }
+  },
+  "background": {
+    "widgets": {
+      "clock": {
+        "enable": false
+      },
+      "weather": {
+        "enable": false
+      }
+    },
+    "wallpaperPath": "/usr/share/veldora/theme/black-dragon.png"
+  },
+  "dock": {
+    "enable": false,
+    "pinnedOnStartup": false,
+    "monochromeIcons": false,
+    "pinnedApps": [
+      "firefox",
+      "foot",
+      "thunar",
+      "veldora-workbench"
+    ]
+  },
+  "battery": {
+    "automaticSuspend": false
+  },
+  "conflictKiller": {
+    "autoKillTrays": false,
+    "autoKillNotificationDaemons": false
+  },
+  "apps": {
+    "terminal": "foot",
+    "fileManager": "thunar",
+    "network": "foot -e nmtui",
+    "networkEthernet": "foot -e nmtui",
+    "volumeMixer": "pavucontrol",
+    "taskManager": "foot -e top"
+  },
+  "time": {
+    "format": "hh:mm",
+    "shortDateFormat": "ddd, dd/MM"
+  }
 }

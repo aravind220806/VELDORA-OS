@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 3840 2160">
+<defs>
+ <radialGradient id="sky" cx="65%" cy="42%" r="76%"><stop stop-color="#153c50"/><stop offset=".55" stop-color="#0b1c2c"/><stop offset="1" stop-color="#050c16"/></radialGradient>
+ <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#80ecf5"/><stop offset=".5" stop-color="#2994b5"/><stop offset="1" stop-color="#183c59"/></linearGradient>
+ <pattern id="grid" width="120" height="120" patternUnits="userSpaceOnUse"><path d="M120 0H0V120" fill="none" stroke="#62bad0" stroke-opacity=".045"/></pattern>
+</defs>
+<path fill="url(#sky)" d="M0 0h3840v2160H0z"/><path fill="url(#grid)" d="M0 0h3840v2160H0z"/>
+<g fill="none" stroke="#468aa5" stroke-opacity=".15" stroke-width="2">
+<path d="M-200 1920 1280 440h1280l1480 1480M-200 1680 1280 200h1280l1480 1480M-200 1440 1280-40h1280l1480 1480"/>
+<path d="m0 2100 1460-1460h920l1460 1460"/>
+</g>
+<g transform="translate(1920 970)">
+<path d="M-520-340-120 390H120L520-340H310L0 190-310-340Z" fill="#091723" stroke="url(#edge)" stroke-width="3"/>
+<path d="M-420-340 0 390 420-340M-285-280 0 210 285-280" fill="none" stroke="url(#edge)" stroke-width="2" opacity=".6"/>
+<path d="m-610 0 65-65m1090 65 65-65M-25-440h50M-25 480h50" stroke="#8ce6ed" stroke-width="3"/>
+</g>
+<text x="1920" y="1570" text-anchor="middle" fill="#b8d7e2" font-family="sans-serif" font-size="38" letter-spacing="24">VELDORA</text>
+<text x="1920" y="1630" text-anchor="middle" fill="#527f94" font-family="monospace" font-size="17" letter-spacing="7">STORM / SECURITY WORKSTATION</text>
+</svg>

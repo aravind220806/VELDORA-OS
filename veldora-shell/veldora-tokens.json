@@ -1,0 +1,76 @@
+{
+  "colors": {
+    "background": "#101012",
+    "surface": "#1A1A1D",
+    "surfaceOpacity": 0.7,
+    "surfaceHigh": "#242428",
+    "accent": "#FF8A8F",
+    "accentOpacity": 0.18,
+    "text": "#F2F2F4",
+    "textDim": "#9A9AA3",
+    "danger": "#FF5A5F",
+    "border": "#ffffff",
+    "borderOpacity": 0.08
+  },
+  "radius": {
+    "pill": 999,
+    "card": 28,
+    "tile": 22,
+    "small": 14,
+    "notification": 24,
+    "window": 16
+  },
+  "spacing": {
+    "xs": 6,
+    "sm": 10,
+    "md": 14,
+    "lg": 20
+  },
+  "animation": {
+    "duration": 220,
+    "curve": "OutBack",
+    "overshoot": 0.8
+  },
+  "shadow": {
+    "blur": 24,
+    "offsetY": 8,
+    "color": "#000000",
+    "opacity": 0.35
+  },
+  "font": {
+    "text": "Noto Sans",
+    "icon": "Material Symbols Rounded",
+    "size": 13,
+    "small": 11,
+    "heading": 22
+  },
+  "sizes": {
+    "bar": 44,
+    "barGap": 10,
+    "dockGap": 12,
+    "icon": 44,
+    "iconHover": 56,
+    "iconNeighbor": 49,
+    "close": 36,
+    "track": 14,
+    "handle": 22,
+    "controlWidth": 390,
+    "launcherWidth": 580,
+    "notificationWidth": 360,
+    "osdWidth": 300,
+    "terminalPadding": 12,
+    "cursor": 24,
+    "dockHeight": 88
+  },
+  "timing": {
+    "notification": 5000,
+    "osd": 1500
+  },
+  "effects": {
+    "patternOpacity": 0.02,
+    "activeBorderOpacity": 0.4,
+    "terminalOpacity": 0.92,
+    "workspaceGlow": 0.2
+  },
+  "cursor": "breeze_cursors"
+}

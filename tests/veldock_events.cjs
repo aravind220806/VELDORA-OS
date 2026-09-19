@@ -1,0 +1,18 @@
+const assert = require('node:assert/strict');
+const M = require('../shell/end4/modules/veldora/veldock/EventModel.js');
+let history = [];
+for (let i=0;i<150;i++) history=M.insert(history,M.normalize({id:String(i),title:'event'},i,false));
+assert.equal(history.length,100);
+let replacement=M.normalize({id:'149',title:'replacement'},200,false);
+history=M.insert(history,replacement);assert.equal(history.length,100);assert.equal(history[0].title,'replacement');
+const spoof=M.normalize({id:'spoof',kind:'protection',severity:'critical',title:'<b>Sentinel</b>',actions:[{command:'rm -rf /'}],trustLevel:'local-service'},201,false);
+assert.equal(spoof.trustLevel,'untrusted-application');assert.equal(spoof.kind,'notification');assert.deepEqual(spoof.actions,[]);assert.equal(spoof.title,'<b>Sentinel</b>');
+const trusted=M.normalize({id:'local',kind:'protection',severity:'critical'},202,true);
+history=M.insert(M.insert(history,spoof),trusted);assert.equal(M.active(history,203,false,false,false).id,'local');
+assert.equal(M.active(history,203,true,false,false),null);assert(M.passiveCritical(history,203));
+assert.equal(M.active(history,203,false,true,false),null);assert.equal(M.active(history,203,false,false,true),null);
+assert.equal(M.active(history,40000,false,false,false),null);assert.equal(M.retained(history,86401000).length,0);
+assert.equal(M.remove(history,'local').some(e=>e.id==='local'),false);
+assert.equal(M.normalize({title:'x'.repeat(10000),body:'x'.repeat(10000),progress:NaN,ttl:Infinity},0,false).title.length,160);
+assert.equal(M.normalize({progress:NaN},0,false).progress,null);
+console.log('VelDock arbitration passed: cap, replacement, spoofing, priority, DND, lock, fullscreen, expiry, malformed values.');

@@ -2,6 +2,7 @@
 set -euo pipefail
 case "${1:-}" in
     --legacy) shift; exec python /usr/share/veldora/shell/main.py "$@" ;;
+    --launcher) exec qs ipc -c ii call veldora launcher ;;
     --toggle) exec qs ipc -c ii call veldora toggle ;;
     --control)
         case "${2:-}" in
@@ -13,6 +14,6 @@ case "${1:-}" in
             *) echo 'Unknown control' >&2; exit 2 ;;
         esac
         ;;
-    '') exec qs -c ii ;;
+    '') exec qs -n -c ii ;;
     *) echo 'Usage: veldora-shell [--toggle|--control ACTION|--legacy]' >&2; exit 2 ;;
 esac

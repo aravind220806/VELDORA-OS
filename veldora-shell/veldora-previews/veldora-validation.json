@@ -1,0 +1,27 @@
+{
+  "checks": [
+    "Hyprland configuration has no errors",
+    "Workspace switching uses the live Lua API",
+    "Bar, dock and preserved wallpaper are mapped",
+    "Control Center opens",
+    "Launcher opens with real desktop entries",
+    "Enter launches the selected desktop application",
+    "Escape dismisses the launcher",
+    "Notification server displays a real notification",
+    "Notifications expire after five seconds",
+    "Shell volume control caps output at 100 percent",
+    "Volume change produces an OSD",
+    "OSD disappears after 1.5 seconds",
+    "Quickshell has no warnings or errors"
+  ],
+  "physical_super_key": "Confirmed by user",
+  "not_exercised": [
+    "poweroff",
+    "reboot",
+    "suspend",
+    "lock",
+    "disconnect Wi-Fi/Bluetooth",
+    "microphone mutation",
+    "second monitor"
+  ]
+}

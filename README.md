@@ -23,18 +23,21 @@
 
 ## Current implementation — September 2026
 
-This repository now contains an **experimental Hyprland live ISO project** with an
-compact Hyprland desktop and expandable Veldora Island. The architecture below
-remains the long-term design; it is **not a list of shipped security protections**.
+This repository contains an **experimental Hyprland live ISO project** with the
+**Veldora Storm** theme and a local security workbench. The architecture below is
+still a long-term design, not a list of shipped protections.
 
-Implemented: Archiso v90 profile, live-user login, NetworkManager, Lua Hyprland theme,
-GTK island with desktop notifications and media controls, audio/brightness feedback,
-workspace/status pills, idle date/time island, configurable wallpaper, build scripts, and static tests.
+Implemented: Archiso profile, live-user login, NetworkManager, themed Hyprland,
+end-4 Quickshell integration with Veldora overlays, original Storm wallpaper,
+notifications and media controls, search and workspace overview, and a GTK security
+workbench with 20 tool entries, engagement folders, evidence hashing and local
+system checks. The ISO package manifest includes the tools used by the workbench.
 
-**An ISO has not yet been built or boot-tested.** A custom installer, Sentinel,
-USB/camera enforcement, voice control, Veldora Island security alerts, encryption
-installation, and Secure Boot signing are not implemented. The initial shell uses
-Python/GTK3, not AGS/Astal. The comparison and feature sections below describe targets.
+**An ISO has not yet been built or boot-tested.** Sentinel, a custom installer,
+USB/camera enforcement, encrypted installation and Secure Boot signing remain
+unimplemented. The older GTK island is retained as a fallback.
+
+See [desktop controls, theme and attribution](docs/DESKTOP.md).
 
 ```bash
 sudo pacman -Syu --needed archiso python
@@ -48,7 +51,7 @@ Read [build instructions and boot-test checklist](docs/BUILD.md). Live credentia
 
 Actual shell previews (isolated Hyprland session, not an ISO boot):
 
-![Veldora desktop](docs/screenshots/desktop.png)
+![Veldora Storm desktop](docs/screenshots/storm-desktop.png)
 
 [Expanded island preview](docs/screenshots/island.png) · [Validation results](docs/VALIDATION.md)
 
@@ -386,18 +389,11 @@ capabilities is arguably worse than one that's honest about its limits.
 
 ## 🆚 Comparison vs Established Distros
 
-| | **Veldora OS** | Kali | Parrot | BlackArch |
-|---|:---:|:---:|:---:|:---:|
-| Base | Arch (rolling) | Debian | Debian | Arch (rolling) |
-| Desktop | Hyprland, GUI-first | Multiple | Multiple | Minimal/DIY |
-| Rule-based security companion | ✅ | ❌ | ❌ | ❌ |
-| Default-deny USB policy | ✅ | Manual setup | Manual setup | Manual setup |
-| Offline voice interface | ✅ | ❌ | ❌ | ❌ |
-| Themed GUI installer | ✅ | ✅ | ✅ | ❌ |
-| Idle-performance-first design | ✅ | Varies | Varies | Varies |
-
-*Kali, Parrot, and BlackArch remain mature, widely-trusted distributions — this reflects a
-different architectural approach, not a claim of replacing them for every use case.*
+Veldora aims to combine a focused cybersecurity workflow with a distinctive
+Hyprland desktop. There is no benchmark or release validation establishing that
+it outperforms Kali, Parrot or BlackArch. The shipped prototype and planned
+protections are described separately above; comparative claims should follow
+repeatable release testing.
 
 <br>
 

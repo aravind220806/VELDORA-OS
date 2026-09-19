@@ -1,0 +1,9 @@
+{
+  "wallpaper": "/usr/share/veldora/theme/black-dragon.png",
+  "pinnedApps": [
+    "thunar",
+    "kitty",
+    "firefox",
+    "veldora-workbench"
+  ]
+}

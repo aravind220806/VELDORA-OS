@@ -37,3 +37,21 @@ no dock/desktop-clock surfaces, notification-driven width expansion, return to i
 width after the timeout, and manual expansion/collapse. The theme is a Hyprland
 layout with date/time-only idle content. Hardware Bluetooth/power actions and lock
 password authentication still require live-image/hardware testing.
+
+## Storm and security workbench revision — 2026-09-14
+
+- Static preflight passed with 217 packages, including every workbench package.
+- All manifest package names resolved in the host pacman sync databases.
+- All 12 unit tests passed (notification model plus workbench file handling,
+  traversal/symlink rejection, search, hashing, launch arguments and missing tools).
+- GTK smoke passed: search, empty results, page navigation and local diagnostics.
+- Hyprland verified the modified Lua configuration successfully.
+- Prepared profile contains the workbench, desktop entry, Storm palette and wallpaper.
+- Quickshell loaded and rendered Storm in an isolated headless Hyprland compositor;
+  quick-settings IPC opened the panel. Screenshot: `screenshots/storm-desktop.png`.
+- Upstream config-startup access in the notification panel was guarded in the overlay.
+
+The nested session reports portal/polkit conflicts with the host session and
+missing C-locale translation files. No full ISO build/boot or hardware validation
+was performed. Package resolution does not prove successful installation or runtime
+compatibility of each tool.

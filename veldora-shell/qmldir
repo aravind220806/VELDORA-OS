@@ -1,0 +1,16 @@
+VeldoraButton 1.0 VeldoraButton.qml
+VeldoraGlass 1.0 VeldoraGlass.qml
+VeldoraIcon 1.0 VeldoraIcon.qml
+singleton VeldoraState 1.0 VeldoraState.qml
+VeldoraText 1.0 VeldoraText.qml
+singleton VeldoraTokens 1.0 VeldoraTokens.qml
+VeldoraTop 1.0 VeldoraTop.qml
+VeldoraDock 1.0 VeldoraDock.qml
+VeldoraSlider 1.0 VeldoraSlider.qml
+VeldoraTile 1.0 VeldoraTile.qml
+VeldoraControls 1.0 VeldoraControls.qml
+VeldoraNotices 1.0 VeldoraNotices.qml
+VeldoraOsd 1.0 VeldoraOsd.qml
+VeldoraLauncher 1.0 VeldoraLauncher.qml
+VeldoraBackdrop 1.0 VeldoraBackdrop.qml
+VeldoraAppIcon 1.0 VeldoraAppIcon.qml

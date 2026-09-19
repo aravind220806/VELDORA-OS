@@ -1,17 +1,17 @@
--- Veldora / Origin-inspired desktop. Requires Hyprland >= 0.56.
+-- Veldora Storm desktop. Requires Hyprland >= 0.56.
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })
 hl.env("XCURSOR_SIZE", "24")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.config({
     general = {
-        gaps_in = 7, gaps_out = 20, border_size = 1,
-        col = { active_border = "rgba(c8bfd4bb)", inactive_border = "rgba(ffffff20)" },
+        gaps_in = 6, gaps_out = 14, border_size = 1,
+        col = { active_border = "rgba(52d6e8cc)", inactive_border = "rgba(ffffff18)" },
         layout = "dwindle", resize_on_border = true,
     },
     decoration = {
         rounding = 12, rounding_power = 3,
-        shadow = { enabled = true, range = 24, render_power = 3, color = "rgba(07151b55)" },
-        blur = { enabled = true, size = 8, passes = 3, vibrancy = 0.16 },
+        shadow = { enabled = true, range = 28, render_power = 3, color = "rgba(02081299)" },
+        blur = { enabled = true, size = 6, passes = 2, vibrancy = 0.12 },
     },
     animations = { enabled = true },
     input = { kb_layout = "us", follow_mouse = 1, touchpad = { natural_scroll = true } },
@@ -20,16 +20,16 @@ hl.config({
 })
 hl.curve("veldora", { type = "bezier", points = { {0.22, 1}, {0.36, 1} } })
 for _, leaf in ipairs({"windows", "layers", "workspaces", "fade"}) do
-    hl.animation({ leaf = leaf, enabled = true, speed = 4, bezier = "veldora" })
+    hl.animation({ leaf = leaf, enabled = true, speed = 3.5, bezier = "veldora" })
 end
 hl.layer_rule({ name = "veldora-glass", match = { namespace = "veldora-.*" }, blur = true, ignore_alpha = 0.1 })
 hl.on("hyprland.start", function()
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")
     hl.exec_cmd("veldora-shell")
-    hl.exec_cmd("wl-paste --watch cliphist store")
+    -- Clipboard collection is opt-in; no history daemon starts by default.
 end)
 hl.bind("SUPER + Return", hl.dsp.exec_cmd("foot"))
-hl.bind("SUPER + Space", hl.dsp.exec_cmd("qs ipc -c ii call search toggle"))
+hl.bind("SUPER + Space", hl.dsp.exec_cmd("veldora-shell --launcher"))
 hl.bind("SUPER + A", hl.dsp.exec_cmd("fuzzel"))
 hl.bind("SUPER + comma", hl.dsp.exec_cmd("qs -p ~/.config/quickshell/ii/settings.qml"))
 hl.bind("SUPER + Escape", hl.dsp.exec_cmd("qs ipc -c ii call session toggle"))
@@ -60,3 +60,7 @@ end
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"))
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"))
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
+
+-- Overview and clipboard remain available through the integrated shell.
+hl.bind("SUPER + Tab", hl.dsp.exec_cmd("qs ipc -c ii call search workspacesToggle"))
+hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("qs ipc -c ii call search clipboardToggle"))

@@ -1,66 +1,69 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// Veldora layout; uses end-4's native services and widgets.
+// Veldora composition, 2026-09-14. Pinned upstream services, original layout.
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Hyprland
+import Quickshell.Bluetooth
 import qs
 import qs.services
-import qs.modules.common
-import qs.modules.common.widgets
+import qs.modules.veldora.theme
+import qs.modules.veldora.veldock
 Item {
     id: root
     property var screen: QsWindow.window?.screen
-    component Pill: Rectangle {
-        color: Qt.rgba(0.10, 0.09, 0.13, 0.92)
-        radius: height / 2
-        border.width: 1
-        border.color: Qt.rgba(0.85, 0.80, 0.95, 0.08)
-    }
+    readonly property var monitor: Hyprland.monitors.values.find(m => m.name === screen?.name)
+    readonly property int workspace: monitor?.activeWorkspace?.id ?? 1
+    readonly property bool primary: screen === DockState.primary
+    readonly property var workspaces: Quickshell.env("VELDORA_ALL_WORKSPACES") === "1" ? [1,2,3,4,5,6,7,8,9,10] : [...new Set([workspace, ...Hyprland.workspaces.values.filter(w => w.id > 0 && w.toplevels.values.length > 0).map(w => w.id)])].sort((a,b) => a-b)
     RowLayout {
-        anchors.left: parent.left
-        anchors.leftMargin: 8
-        anchors.verticalCenter: parent.verticalCenter
-        spacing: 6
-        Pill {
-            implicitWidth: workspaces.implicitWidth + 12
-            implicitHeight: 32
-            Workspaces { id: workspaces; anchors.centerIn: parent }
-        }
-        Pill {
-            visible: root.width > 1500
-            implicitWidth: resources.implicitWidth + 16
-            implicitHeight: 32
-            Resources { id: resources; anchors.centerIn: parent; alwaysShowAllResources: true }
+        id: left
+        anchors.left: parent.left; anchors.leftMargin: 8; anchors.verticalCenter: parent.verticalCenter
+        spacing: 4
+        Repeater {
+            model: root.workspaces.slice(0, root.width < 1000 ? 3 : 10)
+            Action {
+                required property int modelData
+                implicitWidth: 30; implicitHeight: 30
+                text: String(modelData); checked: root.workspace === modelData
+                Accessible.name: "Workspace " + modelData
+                onClicked: Hyprland.dispatch("hl.dsp.focus({workspace = " + modelData + "})")
+            }
         }
     }
     VeldoraIsland {
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
+        visible: root.primary && !DockState.fullscreen
+        anchors.centerIn: parent
+        maximumWidth: Math.max(80, Math.min(380, root.width - 2 * Math.max(left.width, right.width) - 32))
     }
     RowLayout {
-        anchors.right: parent.right
-        anchors.rightMargin: 8
-        anchors.verticalCenter: parent.verticalCenter
-        spacing: 6
-        SysTray { Layout.alignment: Qt.AlignVCenter }
-        Pill {
-            implicitWidth: status.implicitWidth + 22
-            implicitHeight: 32
-            RowLayout {
-                id: status
-                anchors.centerIn: parent
-                spacing: 9
-                MaterialSymbol { text: Audio.sink?.audio.muted ? "volume_off" : "volume_up"; iconSize: 18 }
-                MaterialSymbol { text: Network.wifiEnabled ? "wifi" : "lan"; iconSize: 18 }
-                MaterialSymbol { text: "bluetooth"; iconSize: 18 }
-                StyledText { text: Battery.available ? Math.round(Battery.percentage * 100) + "%" : "AC"; font.pixelSize: 12 }
-            }
-            MouseArea { anchors.fill: parent; onClicked: GlobalStates.sidebarRightOpen = !GlobalStates.sidebarRightOpen }
+        id: right
+        anchors.right: parent.right; anchors.rightMargin: 8; anchors.verticalCenter: parent.verticalCenter
+        spacing: 4
+        Action {
+            visible: root.width > 1050
+            text: Network.ethernet ? "Ethernet" : Network.wifiStatus === "connected" ? "Wi-Fi" : "Wi-Fi · " + Network.wifiStatus
+            implicitHeight: 30
+            Accessible.name: "Network: " + text
+            onClicked: GlobalStates.sidebarRightOpen = !GlobalStates.sidebarRightOpen
         }
-        Pill {
-            implicitWidth: 34; implicitHeight: 32
-            MaterialSymbol { anchors.centerIn: parent; text: "power_settings_new"; iconSize: 18 }
-            MouseArea { anchors.fill: parent; onClicked: GlobalStates.sessionOpen = !GlobalStates.sessionOpen }
+        Action {
+            visible: root.width > 1500
+            text: Bluetooth.defaultAdapter ? (Bluetooth.defaultAdapter.enabled ? "BT on" : "BT off") : "No BT"
+            implicitHeight: 30
+            onClicked: Quickshell.execDetached(["blueman-manager"])
         }
+        Action {
+            text: Audio.ready ? (Audio.sink.audio.muted ? "Muted" : Math.round(Audio.value * 100) + "%") : "No audio"
+            implicitHeight: 30
+            onClicked: DockState.open("Audio")
+        }
+        Action {
+            visible: root.width > 700
+            text: Battery.available ? Math.round(Battery.percentage * 100) + "% battery" : "Power"
+            implicitHeight: 30
+            onClicked: GlobalStates.sessionOpen = !GlobalStates.sessionOpen
+        }
+        Action { text: "⋮"; Accessible.name: "Control center"; implicitHeight: 30; onClicked: GlobalStates.sidebarRightOpen = !GlobalStates.sidebarRightOpen }
     }
 }

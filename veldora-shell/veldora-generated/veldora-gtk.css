@@ -1,0 +1,22 @@
+/* Generated from veldora-tokens.json. */
+@define-color accent_color #FF8A8F;
+@define-color accent_bg_color #FF8A8F;
+@define-color accent_fg_color #101012;
+@define-color window_bg_color #101012;
+@define-color window_fg_color #F2F2F4;
+@define-color view_bg_color #1A1A1D;
+@define-color view_fg_color #F2F2F4;
+@define-color headerbar_bg_color #242428;
+@define-color headerbar_fg_color #F2F2F4;
+@define-color card_bg_color #242428;
+@define-color card_fg_color #F2F2F4;
+@define-color popover_bg_color #242428;
+@define-color popover_fg_color #F2F2F4;
+@define-color sidebar_bg_color #1A1A1D;
+@define-color sidebar_fg_color #F2F2F4;
+@define-color destructive_color #FF5A5F;
+@define-color theme_selected_bg_color #FF8A8F;
+@define-color theme_selected_fg_color #101012;
+window, window.background, decoration { border-radius: 16px; }
+button, entry, searchentry { border-radius: 999px; }
+selection, button.suggested-action { background-color: @accent_bg_color; color: @accent_fg_color; }

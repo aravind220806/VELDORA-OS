@@ -1,0 +1,1 @@
+veldora-entry.qml
