@@ -32,9 +32,10 @@ Singleton {
     readonly property string mediaTitle: player ? player.trackTitle : ""
     readonly property var dockApps: VeldoraApps.veldoraGroup(applications, settings.pinnedApps, Hyprland.toplevels.values)
     readonly property bool reducedMotion: settings.reducedMotion === true
-    function closePanels() { overviewOpen = false; launcherOpen = false; controlsOpen = false; islandOpen = false; }
+    function closePanels() { overviewOpen = false; launcherOpen = false; controlsOpen = false; islandOpen = false; sportOpen = false; }
     function toggleOverview() { const veldoraOpen = !overviewOpen; closePanels(); overviewOpen = veldoraOpen && !privacyMode; }
     function toggleIsland() { const veldoraOpen = !islandOpen; closePanels(); islandOpen = veldoraOpen && !privacyMode; privacyVeil = false; }
+    function toggleSport() { const veldoraOpen = !sportOpen; closePanels(); sportOpen = veldoraOpen && !privacyMode; }
     function recordEvent(veldoraInput) { if (privacyMode) return; eventTime = Date.now(); history = VeldoraEvents.veldoraInsert(history, VeldoraEvents.veldoraNormalize(veldoraInput, eventTime)); }
     function dismissEvent(veldoraId) { history = VeldoraEvents.veldoraRemove(history, veldoraId); }
     function setPrivacy(veldoraValue) { privacyMode = veldoraValue; privacyVeil = true; closePanels(); history = []; osdKind = ""; }
@@ -46,12 +47,39 @@ Singleton {
     }
     property bool controlsOpen: false
     property bool launcherOpen: false
+    property bool sportOpen: false
     property bool powerOpen: false
     property bool focusMode: false
     property bool dockPinned: settings.dockPinned !== false
     function setPreference(veldoraKey, veldoraValue) { const veldoraNext = Object.assign({},settings); veldoraNext[veldoraKey] = veldoraValue; settings = veldoraNext; veldoraSettingsFile.setText(JSON.stringify(veldoraNext,null,2)); }
+    function playRoar() {
+        if (Quickshell.env("VELDORA_ISOLATED") === "1") return;
+        const roarPath = Qt.resolvedUrl("bmw-roar.wav").toString().replace("file://", "");
+        Quickshell.execDetached(["pw-play", roarPath]);
+    }
+    Component.onCompleted: {
+        playRoar();
+        syncRgb(performanceMode);
+    }
+    function syncRgb(mode) {
+        if (Quickshell.env("VELDORA_ISOLATED") === "1") return;
+        const rgbPath = Qt.resolvedUrl("veldora-rgb.py").toString().replace("file://", "");
+        Quickshell.execDetached(["python3", rgbPath, mode]);
+    }
+    property string performanceMode: (settings && settings.performanceMode) ? settings.performanceMode : "sport"
+    function setPerformanceMode(mode) {
+        if (!["saver", "normal", "sport"].includes(mode)) return;
+        setPreference("performanceMode", mode);
+        performanceMode = mode;
+        syncRgb(mode);
+        const hex = mode === "saver" ? "00E5FF" : mode === "sport" ? "FF3B30" : "FF8A8F";
+        action(["hyprctl", "keyword", "general:col.active_border", "rgba(" + hex + "99)"]);
+        if (mode === "saver") action(["powerprofilesctl", "set", "power-saver"]);
+        else if (mode === "sport") action(["powerprofilesctl", "set", "performance"]);
+        else action(["powerprofilesctl", "set", "balanced"]);
+    }
     property string osdKind: ""
-    property var hardware: ({wifi:false, network:"Checking…", bluetooth:false, bluetoothAvailable:false, brightness:-1, battery:-1, charging:false})
+    property var hardware: ({wifi:false, network:"Checking…", bluetooth:false, bluetoothAvailable:false, brightness:-1, battery:-1, charging:false, cpu:"6%", ram:"3.2G", swap:"0%", storage:"24%", gpu:"1.4GHz"})
     readonly property var sink: Pipewire.defaultAudioSink
     readonly property var source: Pipewire.defaultAudioSource
     readonly property real volume: sink && sink.audio ? sink.audio.volume : 0

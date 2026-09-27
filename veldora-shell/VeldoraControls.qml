@@ -102,9 +102,9 @@ PanelWindow {
                         VeldoraText { Layout.fillWidth: true; text: veldoraMediaColumn.veldoraPlayer ? veldoraMediaColumn.veldoraPlayer.trackTitle || "Now playing" : "A little room to breathe"; font.weight: Font.Medium }
                         RowLayout {
                             VeldoraText { Layout.fillWidth: true; text: veldoraMediaColumn.veldoraPlayer ? veldoraMediaColumn.veldoraPlayer.trackArtist : "No media playing"; color: VeldoraTokens.colors.textDim; font.pixelSize: VeldoraTokens.font.small }
-                            VeldoraButton { veldoraIcon: "skip_previous"; enabled: !!veldoraMediaColumn.veldoraPlayer; onClicked: veldoraMediaColumn.veldoraPlayer.previous() }
-                            VeldoraButton { veldoraIcon: veldoraMediaColumn.veldoraPlayer && veldoraMediaColumn.veldoraPlayer.isPlaying ? "pause" : "play_arrow"; enabled: !!veldoraMediaColumn.veldoraPlayer; onClicked: veldoraMediaColumn.veldoraPlayer.togglePlaying() }
-                            VeldoraButton { veldoraIcon: "skip_next"; enabled: !!veldoraMediaColumn.veldoraPlayer; onClicked: veldoraMediaColumn.veldoraPlayer.next() }
+                            VeldoraButton { veldoraIcon: "skip_previous"; enabled: !!veldoraMediaColumn.veldoraPlayer && veldoraMediaColumn.veldoraPlayer.canTogglePlaying; onClicked: veldoraMediaColumn.veldoraPlayer.previous() }
+                            VeldoraButton { veldoraIcon: veldoraMediaColumn.veldoraPlayer && veldoraMediaColumn.veldoraPlayer.isPlaying ? "pause" : "play_arrow"; enabled: !!veldoraMediaColumn.veldoraPlayer && veldoraMediaColumn.veldoraPlayer.canTogglePlaying; onClicked: veldoraMediaColumn.veldoraPlayer.togglePlaying() }
+                            VeldoraButton { veldoraIcon: "skip_next"; enabled: !!veldoraMediaColumn.veldoraPlayer && veldoraMediaColumn.veldoraPlayer.canTogglePlaying; onClicked: veldoraMediaColumn.veldoraPlayer.next() }
                         }
                     }
                 }

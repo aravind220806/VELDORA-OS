@@ -21,13 +21,18 @@ PanelWindow {
     VeldoraGlass {
         id: veldoraLeft
         x: VeldoraTokens.sizes.barGap; y: VeldoraTokens.sizes.barGap
-        width: veldoraWorkspaces.width + VeldoraTokens.spacing.sm * 2
+        width: veldoraLeftRow.width + VeldoraTokens.spacing.sm * 2
         height: VeldoraTokens.sizes.bar
         Row {
-            id: veldoraWorkspaces
+            id: veldoraLeftRow
             anchors.centerIn: parent
-            spacing: VeldoraTokens.spacing.sm
-            VeldoraButton { text: "VELDORA"; veldoraTint: VeldoraTokens.colors.accent; onClicked: VeldoraState.toggleOverview() }
+            spacing: VeldoraTokens.spacing.xs
+            VeldoraButton {
+                veldoraIcon: "grid_view"
+                veldoraTint: VeldoraTokens.colors.accent
+                onClicked: VeldoraState.toggleOverview()
+                Accessible.name: "Overview"
+            }
             Repeater {
                 model: Hyprland.workspaces
                 delegate: Item {
@@ -49,6 +54,43 @@ PanelWindow {
                     }
                     MouseArea { id: veldoraWorkspaceMouse; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: VeldoraState.activateWorkspace(veldoraWorkspace.modelData.id) }
                 }
+            }
+            Rectangle {
+                width: 1
+                height: VeldoraTokens.sizes.close * 0.6
+                color: VeldoraTokens.border
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            VeldoraButton {
+                veldoraIcon: "memory"
+                text: "CPU " + VeldoraState.hardware.cpu
+                onClicked: VeldoraState.toggleControls()
+                Accessible.name: "CPU usage"
+            }
+            VeldoraButton {
+                veldoraIcon: "developer_board"
+                text: "RAM " + VeldoraState.hardware.ram
+                onClicked: VeldoraState.toggleControls()
+                Accessible.name: "RAM usage"
+            }
+            VeldoraButton {
+                veldoraIcon: "swap_horiz"
+                text: "SWAP " + VeldoraState.hardware.swap
+                onClicked: VeldoraState.toggleControls()
+                Accessible.name: "Swap usage"
+            }
+            VeldoraButton {
+                veldoraIcon: "storage"
+                text: "DISK " + VeldoraState.hardware.storage
+                onClicked: VeldoraState.toggleControls()
+                Accessible.name: "Disk storage usage"
+            }
+            VeldoraButton {
+                visible: VeldoraState.hardware.gpu !== "" && VeldoraState.hardware.gpu !== "N/A"
+                veldoraIcon: "speed"
+                text: "GPU " + VeldoraState.hardware.gpu
+                onClicked: VeldoraState.toggleControls()
+                Accessible.name: "GPU clock speed"
             }
         }
     }

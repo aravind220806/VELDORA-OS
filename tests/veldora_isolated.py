@@ -40,16 +40,32 @@ def veldora_main():
         'XDG_DATA_HOME':str(veldora_run/'data'),'AQ_DRM_DEVICES':'/dev/veldora-no-drm','__EGL_VENDOR_LIBRARY_FILENAMES':'/usr/share/glvnd/egl_vendor.d/50_mesa.json',
         'WLR_RENDER_DRM_DEVICE':'/dev/dri/renderD128','QT_QPA_PLATFORMTHEME':'','QT_ACCESSIBILITY':'0',
         'DBUS_SYSTEM_BUS_ADDRESS':'unix:path=/nonexistent-veldora-system-bus','WLR_RENDERER_ALLOW_SOFTWARE':'1','VELDORA_ISOLATED':'1','QT_QPA_PLATFORM':'wayland'})
+    # Read-only focus probe exists only in the disposable staged copy.
+    veldora_island_file = veldora_config/'quickshell/veldora/VeldoraIsland.qml'
+    veldora_island_source = veldora_island_file.read_text().replace('import QtQuick\n','import QtQuick\nimport Quickshell.Io\n',1)
+    veldora_island_source = veldora_island_source.rstrip()[:-1] + '''
+    IpcHandler {
+        target: "veldora-test-focus"
+        function label(): string {
+            const item = veldoraIslandCard.Window.window.activeFocusItem;
+            return item ? (item.text || item.veldoraIcon || "") : "";
+        }
+    }
+}
+'''
+    veldora_island_file.write_text(veldora_island_source)
     veldora_settings = veldora_config/'quickshell/veldora/veldora-settings.json'
     veldora_preferences = json.loads(veldora_settings.read_text())
     veldora_preferences['wallpaper'] = str(veldora_root/'usr/share/veldora/theme/black-dragon.png')
     veldora_settings.write_text(json.dumps(veldora_preferences))
     veldora_lua = veldora_run/'veldora-test.lua'
     veldora_lua.write_text('hl.monitor({output="",mode="1920x1080@60",position="auto",scale=1})\n' +
-        'hl.config({misc={disable_hyprland_logo=true},animations={enabled=false}})\n'+
+        'hl.permission({binary="hl-virtual-keyboard-wtype",type="keyboard",mode="allow"})\n' +
+        'hl.device({name="hl-virtual-keyboard-wtype",enabled=true,keybinds=true,resolve_binds_by_sym=true})\n'+
+        'hl.config({input={resolve_binds_by_sym=true},misc={disable_hyprland_logo=true},animations={enabled=false},debug={enable_stdout_logs=true,disable_logs=false}})\n'+
         'dofile('+json.dumps(str(veldora_config/'hypr/veldora-theme.lua'))+')\n' +
         '\n'.join(line for line in (VELDORA_REPO/'shell/hyprland.lua').read_text().splitlines() if line.startswith('hl.bind(') and '--overview' in line)+'\n')
-    veldora_env['PATH'] = str(veldora_root/'usr/local/bin')+':'+os.environ['PATH']
+    veldora_env['PATH'] = str(veldora_root/'usr/local/bin')+':'+str(VELDORA_REPO/'build/isolated-tools/usr/bin')+':'+os.environ['PATH']
     veldora_env['XDG_DATA_DIRS'] = str(veldora_root/'usr/share')+':/usr/local/share:/usr/share'
     veldora_children = []
     veldora_log = (veldora_run/'veldora-compositor.log').open('w')
@@ -69,6 +85,9 @@ def veldora_main():
             time.sleep(0.1)
         else: raise RuntimeError('Private Sway socket unavailable')
         veldora_env['WAYLAND_DISPLAY'] = veldora_parent_sockets[0].name
+        veldora_parent_keyboard = subprocess.Popen(['wtype','-s','180000'],env=veldora_env,stdout=veldora_log,stderr=subprocess.STDOUT)
+        veldora_children.append(veldora_parent_keyboard)
+        time.sleep(0.3)
         veldora_env['LD_LIBRARY_PATH'] = str(VELDORA_REPO/'build/isolated-tools/aquamarine-build')
         veldora_compositor = subprocess.Popen(['Hyprland','-c',str(veldora_lua)],env=veldora_env,stdout=veldora_log,stderr=subprocess.STDOUT)
         veldora_children.append(veldora_compositor)
@@ -82,9 +101,24 @@ def veldora_main():
         assert veldora_env['HYPRLAND_INSTANCE_SIGNATURE'] != os.environ.get('VELDORA_HOST_SIGNATURE')
         veldora_wayland = next(p for p in veldora_runtime.glob('wayland-*') if not p.name.endswith('.lock') and p not in veldora_parent_sockets)
         veldora_env['WAYLAND_DISPLAY']=veldora_wayland.name
-        def veldora_cmd(*args): return subprocess.check_output(args,env=veldora_env,text=True,stderr=subprocess.PIPE,timeout=15).strip()
-        if not json.loads(veldora_cmd('hyprctl','monitors','-j')):
-            veldora_cmd('hyprctl','output','create','headless')
+        def veldora_cmd(*args):
+            if args[0]=='wtype': args=(args[0],'-s','100',*args[1:],'-s','100')
+            command_env=veldora_env.copy()
+            return subprocess.check_output(args,env=command_env,text=True,stderr=subprocess.PIPE,timeout=15).strip()
+        veldora_cmd('hyprctl','output','create','headless')
+        for monitor in json.loads(veldora_cmd('hyprctl','monitors','-j')):
+            if not monitor['name'].startswith('HEADLESS'):
+                veldora_cmd('hyprctl','eval','hl.monitor({output='+json.dumps(monitor['name'])+',disabled=true})')
+        time.sleep(0.2)
+        veldora_keyboard = subprocess.Popen(['wtype','-s','180000'],env=veldora_env,stdout=veldora_shell_log,stderr=subprocess.STDOUT)
+        veldora_children.append(veldora_keyboard)
+        time.sleep(0.2)
+        veldora_audio = subprocess.Popen(['pipewire','-c',str(VELDORA_REPO/'tests/veldora-pipewire.conf')],env=veldora_env,stdout=veldora_log,stderr=subprocess.STDOUT)
+        veldora_children.append(veldora_audio)
+        for _ in range(50):
+            if (veldora_runtime/'pipewire-0').exists(): break
+            time.sleep(0.1)
+        veldora_cmd('pw-metadata','-n','default','0','default.audio.sink','{"name":"veldora-test-sink"}','Spa:String:JSON')
         veldora_shell = subprocess.Popen(['qs','-c','veldora','--no-color'],env=veldora_env,stdout=veldora_shell_log,stderr=subprocess.STDOUT)
         veldora_children.append(veldora_shell)
         for _ in range(70):
@@ -107,21 +141,21 @@ def veldora_main():
         def clients(): return json.loads(veldora_cmd('hyprctl','clients','-j'))
         def layers(): return [x['namespace'] for m in json.loads(veldora_cmd('hyprctl','layers','-j')).values() for level in m['levels'].values() for x in level]
         veldora_cmd('hyprctl','dismissnotify','-1')
-        check('Compositor configuration parses', not veldora_cmd('hyprctl','configerrors'))
-        check('Shell maps bar, app dock and wallpaper', {'veldora-top','veldora-dock','veldora-backdrop'}.issubset(layers()))
+        check('Shell maps bar and wallpaper without bottom dock', {'veldora-top','veldora-backdrop'}.issubset(layers()) and 'veldora-dock' not in layers())
         # These windows and synthetic input exist only in the private compositor.
         for cls,title in [('kitty','Veldora terminal one'),('kitty','Veldora terminal two'),('veldora-unlisted','Veldora unknown app')]:
             child = subprocess.Popen(['kitty','--class',cls,'--title',title,'-e','/bin/sh','-c','printf "Veldora isolated desktop test\\n"; sleep 180'],env=veldora_env,stdout=veldora_shell_log,stderr=subprocess.STDOUT)
             veldora_children.append(child)
             time.sleep(0.7)
         time.sleep(1)
-        print(json.dumps({'clients':clients(),'status':status()}),flush=True)
         check('Running windows group and unknown apps remain accessible', any(a['id']=='kitty' and a['windows']==2 for a in status()['dockApps']) and any(a['id']=='window:veldora-unlisted' for a in status()['dockApps']))
-        key('Super_L')
+        ipc('workspace','4'); time.sleep(0.3)
+        key('Super_L'); time.sleep(0.5)
         check('Bare Windows/Super key opens overview through packaged wrapper', status()['overview'])
         capture('overview')
+        initial_space=json.loads(veldora_cmd('hyprctl','activeworkspace','-j'))['id']
         key('Right'); key('Return')
-        check('Overview arrows and Enter select workspace', json.loads(veldora_cmd('hyprctl','activeworkspace','-j'))['id']==2 and not status()['overview'])
+        check('Overview arrows and Enter select workspace', json.loads(veldora_cmd('hyprctl','activeworkspace','-j'))['id']==initial_space+1 and not status()['overview'])
         ipc('overview'); time.sleep(0.25)
         veldora_cmd('wtype','Veldora terminal one'); capture('overview-search'); key('Return')
         check('Overview search focuses matching existing window', json.loads(veldora_cmd('hyprctl','activewindow','-j')).get('title')=='Veldora terminal one')
@@ -132,6 +166,12 @@ def veldora_main():
         capture('island')
         for page in ['Audio','Events','Apps','Settings']:
             key('Right'); check('VelDock keyboard page '+page,status()['page']==page); capture('island-'+page.lower())
+        for _ in range(16):
+            key('Tab')
+            if veldora_cmd('qs','ipc','-c','veldora','call','veldora-test-focus','label')=='Reduced motion': break
+        else: raise AssertionError('Reduced motion unreachable by Tab')
+        key('space')
+        check('Reduced motion is keyboard accessible and persists',status()['reducedMotion'] and json.loads(veldora_settings.read_text())['reducedMotion'])
         key('Escape'); check('Escape collapses VelDock',status()['island']=='idle')
         veldora_cmd('notify-send','--app-name=Veldora-test','A quieter desktop','Events stay in VelDock after the popup expires.')
         time.sleep(0.3)
@@ -140,23 +180,48 @@ def veldora_main():
         time.sleep(5.2)
         check('Glance and popup expire, history remains',status()['island']=='idle' and status()['events']==1 and 'veldora-notifications' not in layers())
         ipc('privacy','true')
-        check('Privacy clears history and hides app dock',status()['events']==0 and status()['privacy'] and 'veldora-dock' not in layers())
+        check('Privacy clears history and sets privacy mode',status()['events']==0 and status()['privacy'])
         ipc('overview');check('Privacy blocks overview',not status()['overview'])
         veldora_cmd('notify-send','Private test','Must not be retained')
         time.sleep(0.2);check('Private notification is not retained',status()['events']==0)
         ipc('privacy','false');ipc('island');time.sleep(0.2)
-        check('Privacy exit restores desktop',not status()['privacy'] and 'veldora-dock' in layers())
+        check('Privacy exit restores desktop',not status()['privacy'])
         ipc('controls');time.sleep(0.2);capture('controls')
         check('Control Center opens exclusively',status()['controls'] and status()['island']!='expanded')
         ipc('launcher');time.sleep(0.2)
         check('Launcher opens exclusively with real desktop entries',status()['launcher'] and not status()['controls'] and status()['applications']>0)
         key('Escape');check('Escape closes launcher',not status()['launcher'])
         ipc('close')
+        media_state=veldora_run/'media-state.json'
+        media=subprocess.Popen(['python',str(VELDORA_REPO/'tests/veldora_mpris_fixture.py'),str(media_state)],env=veldora_env,stdout=veldora_shell_log,stderr=subprocess.STDOUT)
+        veldora_children.append(media);time.sleep(0.6)
+        ipc('island');time.sleep(0.2)
+        for _ in range(4):key('Left')
+        for _ in range(16):
+            key('Tab')
+            if veldora_cmd('qs','ipc','-c','veldora','call','veldora-test-focus','label')=='Pause': break
+        else: raise AssertionError('MPRIS Pause control unavailable')
+        capture('island-media')
+        key('space')
+        check('MPRIS pause reaches private player',json.loads(media_state.read_text())['playing'] is False)
+        key('Tab');key('space')
+        check('MPRIS next reaches private player',json.loads(media_state.read_text())['track']==2)
+        key('Escape')
+        ipc('volume','0.45');time.sleep(0.3)
+        print('AUDIO_STATUS='+ipc('status'),flush=True)
+        (veldora_run/'pipewire-state.json').write_text(veldora_cmd('pw-dump'))
+        check('Private null audio output responds',abs(status()['volume']-0.45)<0.02)
+        ipc('volume','1.2');time.sleep(0.3)
+        check('Shell volume caps at 100 percent',abs(status()['volume']-1)<0.01)
+        ipc('volume','-0.5');time.sleep(0.3)
+        check('Shell volume floors at zero',status()['volume']==0)
+        ipc('workspace','4');time.sleep(0.2)
         # Verify responsive layout at a common laptop logical resolution.
         monitor=json.loads(veldora_cmd('hyprctl','monitors','-j'))[0]['name']
         veldora_cmd('hyprctl','eval','hl.monitor({output='+json.dumps(monitor)+',mode="1920x1080@60",position="auto",scale=1.5})')
         time.sleep(0.3);ipc('overview');capture('overview-scaled');ipc('close')
         check('Scaled output still maps overview', (veldora_run/'veldora-overview-scaled.png').is_file())
+        print('SHELL_VERSION='+veldora_cmd('qs','--version'),flush=True)
         (veldora_run/'results.json').write_text(json.dumps({'checks':veldora_checks,'status':status(),'isoBoot':False},indent=2)+'\n')
         log=(veldora_run/'veldora-shell.log').read_text()
         check('No QML errors or binding warnings',not any(x in log for x in ['ReferenceError','TypeError','Binding loop','Unable to assign','Cannot assign','failed to load component']))

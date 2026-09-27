@@ -69,9 +69,9 @@ PanelWindow {
                     }
                     RowLayout {
                         Layout.alignment: Qt.AlignHCenter
-                        VeldoraButton { veldoraIcon: "skip_previous"; enabled: !!VeldoraState.player; onClicked: VeldoraState.player.previous() }
-                        VeldoraButton { veldoraIcon: VeldoraState.player && VeldoraState.player.isPlaying ? "pause" : "play_arrow"; text: VeldoraState.player && VeldoraState.player.isPlaying ? "Pause" : "Play"; veldoraFilled: true; enabled: !!VeldoraState.player; onClicked: VeldoraState.player.togglePlaying() }
-                        VeldoraButton { veldoraIcon: "skip_next"; enabled: !!VeldoraState.player; onClicked: VeldoraState.player.next() }
+                        VeldoraButton { veldoraIcon: "skip_previous"; enabled: !!VeldoraState.player && VeldoraState.player.canGoPrevious; onClicked: VeldoraState.player.previous() }
+                        VeldoraButton { veldoraIcon: VeldoraState.player && VeldoraState.player.isPlaying ? "pause" : "play_arrow"; text: VeldoraState.player && VeldoraState.player.isPlaying ? "Pause" : "Play"; veldoraFilled: true; enabled: !!VeldoraState.player && VeldoraState.player.canTogglePlaying; onClicked: VeldoraState.player.togglePlaying() }
+                        VeldoraButton { veldoraIcon: "skip_next"; enabled: !!VeldoraState.player && VeldoraState.player.canGoNext; onClicked: VeldoraState.player.next() }
                     }
                 }
                 ColumnLayout {
@@ -122,7 +122,7 @@ PanelWindow {
                 }
                 ColumnLayout {
                     spacing:VeldoraTokens.spacing.sm
-                    VeldoraTile { Layout.fillWidth:true; text:"Reduced motion"; veldoraSubtitle:VeldoraState.reducedMotion ? "Animations off" : "Soft transitions"; veldoraIcon:"motion_photos_off"; veldoraOn:VeldoraState.reducedMotion; onClicked:VeldoraState.setPreference("reducedMotion", !VeldoraState.reducedMotion) }
+                    VeldoraTile { Layout.fillWidth:true; text:"Reduced motion"; veldoraSubtitle:VeldoraState.reducedMotion ? "Shell transitions off" : "Soft shell transitions"; veldoraIcon:"motion_photos_off"; veldoraOn:VeldoraState.reducedMotion; onClicked:VeldoraState.setPreference("reducedMotion", !VeldoraState.reducedMotion) }
                     VeldoraTile { Layout.fillWidth:true; text:"Pin app dock"; veldoraSubtitle:VeldoraState.dockPinned ? "Always visible" : "Reveal at the bottom edge"; veldoraIcon:"keep"; veldoraOn:VeldoraState.dockPinned; onClicked:VeldoraState.setPreference("dockPinned", !VeldoraState.dockPinned) }
                     VeldoraTile { Layout.fillWidth:true; text:"Hide private history"; veldoraSubtitle:"Clear events and return to the clock"; veldoraIcon:"visibility_off"; onClicked:{ VeldoraState.history=[]; VeldoraState.privacyVeil=true; VeldoraState.islandOpen=false; } }
                     VeldoraText { Layout.fillWidth:true; text:"Sentinel and managed job services are not available in this build."; wrapMode:Text.Wrap; color:VeldoraTokens.colors.textDim; font.pixelSize:VeldoraTokens.font.small }

@@ -9,12 +9,16 @@ import subprocess
 import urllib.request
 root = Path('build/isolated-tools')
 root.mkdir(parents=True, exist_ok=True)
-for url in subprocess.check_output(['pacman','-Sp','--print-format','%l','sway'], text=True).splitlines():
+for url in subprocess.check_output(['pacman','-Sp','--print-format','%l','sway','quickshell'], text=True).splitlines():
     name = url.rsplit('/',1)[1]
     archive = root/name
     if not archive.exists():
         urllib.request.urlretrieve('https://geo.mirror.pkgbuild.com/extra/os/x86_64/'+name,archive)
     subprocess.run(['tar','-xf',str(archive),'-C',str(root)],check=True)
+qs = root/'usr/bin/qs'
+if qs.is_symlink():
+    qs.unlink()
+    qs.symlink_to('quickshell')
 PY
 # Aquamarine 0.15 unconditionally requests protocol v6 from nested compositors.
 # Negotiate the advertised version in a test-only copy (never packaged in ISO).

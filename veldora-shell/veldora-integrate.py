@@ -44,7 +44,6 @@ def veldora_generate(veldora_root):
     veldora_r = veldora_t['radius']
     veldora_config = 'etc/skel/.config/'
     veldora_shell = veldora_config + 'quickshell/veldora/'
-    (veldora_root/veldora_shell).mkdir(parents=True, exist_ok=True)
     for veldora_file in sorted(VELDORA_SOURCE.glob('Veldora*.qml')):
         veldora_write(veldora_shell + veldora_file.name, veldora_file.read_text())
     for veldora_name in ['qmldir', 'veldora-entry.qml', 'VeldoraEvents.js', 'VeldoraApps.js', 'veldora-hardware.py', 'veldora-tokens.json', 'veldora-settings.json']:
