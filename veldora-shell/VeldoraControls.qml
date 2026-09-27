@@ -110,7 +110,7 @@ PanelWindow {
                 }
                 RowLayout {
                     Layout.fillWidth: true; spacing: VeldoraTokens.spacing.sm
-                    VeldoraButton { Layout.fillWidth: true; veldoraFilled: true; veldoraIcon: "lock"; text: "Lock"; onClicked: { VeldoraState.controlsOpen = false; Quickshell.execDetached(["hyprlock"]); } }
+                    VeldoraButton { Layout.fillWidth: true; veldoraFilled: true; veldoraIcon: "lock"; text: "Lock"; onClicked: { VeldoraState.controlsOpen = false; Quickshell.execDetached(["veldora-shell", "--lock"]); } }
                     VeldoraButton { Layout.fillWidth: true; veldoraFilled: true; veldoraIcon: "music_note"; text: "Media"; onClicked: { if (veldoraMediaColumn.veldoraPlayer) veldoraMediaColumn.veldoraPlayer.raise(); } }
                     VeldoraButton { Layout.fillWidth: true; veldoraFilled: true; veldoraIcon: "power_settings_new"; text: "Power"; veldoraTint: VeldoraTokens.colors.accent; onClicked: VeldoraState.powerOpen = !VeldoraState.powerOpen }
                 }

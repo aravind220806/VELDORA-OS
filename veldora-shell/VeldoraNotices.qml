@@ -13,13 +13,14 @@ Scope {
         actionsSupported: true
         onNotification: veldoraNotice => {
             veldoraNotice.tracked = true;
-            if (VeldoraState.focusMode) veldoraNotice.dismiss();
+            VeldoraState.recordEvent({id:"notification:"+veldoraNotice.id,source:veldoraNotice.appName,kind:"notification",title:veldoraNotice.summary,body:veldoraNotice.body});
+            if (VeldoraState.focusMode || VeldoraState.privacyMode || VeldoraState.fullscreen) veldoraNotice.dismiss();
             else if (trackedNotifications.values.length > 4) trackedNotifications.values[0].expire();
         }
     }
     PanelWindow {
         id: veldoraNoticeWindow
-        visible: veldoraServer.trackedNotifications.values.length > 0
+        visible: veldoraServer.trackedNotifications.values.length > 0 && !VeldoraState.privacyMode && !VeldoraState.fullscreen
         WlrLayershell.namespace: "veldora-notifications"
         WlrLayershell.layer: WlrLayer.Overlay
         anchors { top: true; right: true }

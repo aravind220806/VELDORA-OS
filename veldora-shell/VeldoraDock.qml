@@ -1,28 +1,23 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
 
 PanelWindow {
     id: veldoraDock
+    visible: !VeldoraState.fullscreen && !VeldoraState.privacyMode
     WlrLayershell.namespace: "veldora-dock"
     anchors.bottom: true
     color: "transparent"
-    implicitWidth: veldoraDockRow.implicitWidth + VeldoraTokens.spacing.lg * 2 + VeldoraTokens.values.shadow.blur * 2
+    implicitWidth: Math.min(screen ? screen.width : 1280, veldoraDockRow.implicitWidth + VeldoraTokens.spacing.lg * 2 + VeldoraTokens.values.shadow.blur * 2)
     implicitHeight: VeldoraTokens.sizes.dockHeight + VeldoraTokens.sizes.dockGap + VeldoraTokens.values.shadow.blur
     exclusiveZone: VeldoraState.dockPinned ? VeldoraTokens.sizes.dockHeight : 0
     mask: Region { item: veldoraDockGlass; Region { item: veldoraReveal } }
     property int veldoraHovered: -100
     property bool veldoraRevealed: VeldoraState.dockPinned || veldoraDockHover.hovered || veldoraRevealMouse.containsMouse
-    readonly property var veldoraApps: {
-        let veldoraResult = VeldoraState.settings.pinnedApps.map(id => VeldoraState.applications.find(a => a.id === id)).filter(Boolean);
-        for (let veldoraWindow of Hyprland.toplevels.values) {
-            let veldoraApp = VeldoraState.findApp(veldoraWindow.lastIpcObject.class || "");
-            if (veldoraApp && !veldoraResult.some(a => a.id === veldoraApp.id)) veldoraResult.push(veldoraApp);
-        }
-        return veldoraResult;
-    }
+    readonly property var veldoraApps: VeldoraState.dockApps
     Item {
         id: veldoraReveal
         anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
@@ -33,19 +28,25 @@ PanelWindow {
         id: veldoraDockGlass
         anchors.horizontalCenter: parent.horizontalCenter
         y: veldoraDock.veldoraRevealed ? VeldoraTokens.values.shadow.blur : veldoraDock.height - VeldoraTokens.spacing.xs
-        width: veldoraDockRow.implicitWidth + VeldoraTokens.spacing.lg * 2
+        width: veldoraDock.width - VeldoraTokens.values.shadow.blur * 2
         height: VeldoraTokens.sizes.dockHeight
         Behavior on y { NumberAnimation { duration: VeldoraTokens.duration; easing.type: Easing.OutBack } }
         HoverHandler { id: veldoraDockHover }
+        ScrollView {
+            anchors.fill: parent; anchors.leftMargin: VeldoraTokens.spacing.lg; anchors.rightMargin: VeldoraTokens.spacing.lg
+            contentWidth: veldoraDockRow.implicitWidth
+            contentHeight: availableHeight
+            clip: true
+            ScrollBar.vertical.policy: ScrollBar.AlwaysOff
         Row {
             id: veldoraDockRow
-            anchors.centerIn: parent
+            y: (veldoraDockGlass.height - height) / 2
             spacing: VeldoraTokens.spacing.sm
             VeldoraButton {
                 anchors.verticalCenter: parent.verticalCenter
                 veldoraIcon: VeldoraState.dockPinned ? "keep" : "keep_off"
                 veldoraSelected: VeldoraState.dockPinned
-                onClicked: VeldoraState.dockPinned = !VeldoraState.dockPinned
+                onClicked: VeldoraState.setPreference("dockPinned", !VeldoraState.dockPinned)
                 Accessible.name: "Pin dock"
             }
             Repeater {
@@ -54,7 +55,7 @@ PanelWindow {
                     id: veldoraDockApp
                     required property var modelData
                     required property int index
-                    readonly property var veldoraWindows: Hyprland.toplevels.values.filter(w => VeldoraState.findApp(w.lastIpcObject.class || "") === modelData)
+                    readonly property var veldoraWindows: modelData.windows
                     readonly property bool veldoraActive: veldoraWindows.some(w => w.activated)
                     readonly property real veldoraSize: veldoraDock.veldoraHovered === index ? VeldoraTokens.sizes.iconHover : Math.abs(veldoraDock.veldoraHovered - index) === 1 ? VeldoraTokens.sizes.iconNeighbor : VeldoraTokens.sizes.icon
                     width: veldoraSize; height: VeldoraTokens.sizes.iconHover + VeldoraTokens.spacing.sm
@@ -72,23 +73,20 @@ PanelWindow {
                         visible: veldoraDockApp.veldoraWindows.length > 0
                         color: veldoraDockApp.veldoraActive ? VeldoraTokens.colors.accent : VeldoraTokens.colors.textDim
                     }
+                    ToolTip.visible: veldoraDockAppMouse.containsMouse
+                    ToolTip.text: modelData.name
+                    ToolTip.delay: 400
                     MouseArea {
                         id: veldoraDockAppMouse; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
                         onEntered: veldoraDock.veldoraHovered = veldoraDockApp.index
                         onExited: veldoraDock.veldoraHovered = -100
-                        onClicked: {
-                            const veldoraWindows = veldoraDockApp.veldoraWindows;
-                            if (!veldoraWindows.length) veldoraDockApp.modelData.execute();
-                            else {
-                                const veldoraCurrent = veldoraWindows.findIndex(w => w.activated);
-                                VeldoraState.activateWindow(veldoraWindows[(veldoraCurrent + 1) % veldoraWindows.length].address);
-                            }
-                        }
+                        onClicked: VeldoraState.dockActivate(veldoraDockApp.modelData.id)
                     }
                 }
             }
             Rectangle { width: 2; height: VeldoraTokens.sizes.close; radius: VeldoraTokens.radius.pill; color: VeldoraTokens.border; anchors.verticalCenter: parent.verticalCenter }
             VeldoraButton { anchors.verticalCenter: parent.verticalCenter; veldoraIcon: "apps"; onClicked: VeldoraState.toggleLauncher(); Accessible.name: "Open applications" }
+        }
         }
     }
 }

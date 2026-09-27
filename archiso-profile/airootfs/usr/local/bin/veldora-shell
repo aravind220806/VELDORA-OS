@@ -2,8 +2,16 @@
 set -euo pipefail
 case "${1:-}" in
     --legacy) shift; exec python /usr/share/veldora/shell/main.py "$@" ;;
-    --launcher) exec qs ipc -c ii call veldora launcher ;;
-    --toggle) exec qs ipc -c ii call veldora toggle ;;
+    --overview) exec qs ipc -c veldora call veldora overview ;;
+    --controls) exec qs ipc -c veldora call veldora controls ;;
+    --reload) qs kill -c veldora || true; exec qs -n -c veldora -d ;;
+    --lock)
+        qs ipc -c veldora call veldora privacy true || true
+        trap 'qs ipc -c veldora call veldora privacy false || true' EXIT
+        hyprlock
+        ;;
+    --launcher) exec qs ipc -c veldora call veldora launcher ;;
+    --toggle) exec qs ipc -c veldora call veldora island ;;
     --control)
         case "${2:-}" in
             volume-up) wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ ;;
@@ -14,6 +22,6 @@ case "${1:-}" in
             *) echo 'Unknown control' >&2; exit 2 ;;
         esac
         ;;
-    '') exec qs -n -c ii ;;
-    *) echo 'Usage: veldora-shell [--toggle|--control ACTION|--legacy]' >&2; exit 2 ;;
+    '') exec qs -n -c veldora ;;
+    *) echo 'Usage: veldora-shell [--overview|--launcher|--toggle|--controls|--reload|--lock|--control ACTION|--legacy]' >&2; exit 2 ;;
 esac

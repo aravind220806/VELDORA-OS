@@ -24,11 +24,11 @@
 ## Current implementation — September 2026
 
 This repository contains an **experimental Hyprland live ISO project** with the
-**Veldora Storm** theme and a local security workbench. The architecture below is
+**Veldora coral-and-charcoal** theme and a local security workbench. The architecture below is
 still a long-term design, not a list of shipped protections.
 
 Implemented: Archiso profile, live-user login, NetworkManager, themed Hyprland,
-end-4 Quickshell integration with Veldora overlays, original Storm wallpaper,
+original Quickshell shell, packaged black-dragon wallpaper,
 notifications and media controls, search and workspace overview, and a GTK security
 workbench with 20 tool entries, engagement folders, evidence hashing and local
 system checks. The ISO package manifest includes the tools used by the workbench.
@@ -51,9 +51,9 @@ Read [build instructions and boot-test checklist](docs/BUILD.md). Live credentia
 
 Actual shell previews (isolated Hyprland session, not an ISO boot):
 
-![Veldora Storm desktop](docs/screenshots/storm-desktop.png)
+![Veldora workspace overview](docs/screenshots/veldora-overview.png)
 
-[Expanded island preview](docs/screenshots/island.png) · [Validation results](docs/VALIDATION.md)
+[Expanded VelDock preview](docs/screenshots/veldora-island.png) · [Validation results](docs/VALIDATION.md)
 
 ---
 

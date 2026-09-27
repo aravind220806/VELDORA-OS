@@ -14,6 +14,7 @@ python "$repo/scripts/validate.py"
 mkdir -p "$repo/build" "$repo/out"
 run_dir=$(mktemp -d "$repo/build/run-XXXXXXXX")
 "$repo/scripts/prepare-profile.sh" "$run_dir/profile"
+python "$repo/scripts/validate.py" --profile "$run_dir/profile"
 echo "Build log: $run_dir/build.log"
 mkarchiso -v -w "$run_dir/work" -o "$repo/out" "$run_dir/profile" 2>&1 | tee "$run_dir/build.log"
 (

@@ -1,38 +1,26 @@
 #!/usr/bin/env bash
+# Stage an ISO tree only. This script never installs the desktop on the host.
 set -euo pipefail
 repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 destination=${1:-"$repo/build/profile"}
-if [[ -e "$destination" ]]; then
+python - "$repo" "$destination" <<'PYSAFE'
+from pathlib import Path
+import sys
+repo, destination = map(Path, sys.argv[1:])
+if not destination.resolve().is_relative_to(repo.resolve() / 'build'):
+    raise SystemExit('Stage profiles inside this repository’s build directory.')
+PYSAFE
+if [[ -e "$destination" || -L "$destination" ]]; then
     echo "Destination already exists; use a fresh directory: $destination" >&2
     exit 1
 fi
 mkdir -p -- "$destination"
 cp -a -- "$repo/archiso-profile/." "$destination/"
-mkdir -p -- "$destination/airootfs/usr/share/veldora/shell" "$destination/airootfs/etc/skel/.config/hypr"
-cp -- "$repo"/shell/{main.py,model.py,notifications.xml,style.css} "$destination/airootfs/usr/share/veldora/shell/"
-cp -- "$repo/shell/hyprland.lua" "$destination/airootfs/etc/skel/.config/hypr/"
-mkdir -p "$destination/airootfs/usr/share/veldora/workbench"
-cp -- "$repo"/workbench/{main.py,core.py,style.css} "$destination/airootfs/usr/share/veldora/workbench/"
 config="$destination/airootfs/etc/skel/.config"
-cp -a -- "$repo/vendor/end4/dots/.config/quickshell" "$config/"
-cp -a -- "$repo/shell/end4/." "$config/quickshell/ii/"
-cp -- "$repo"/shell/theme/{storm,ember}.json "$config/quickshell/ii/"
-mkdir -p "$destination/airootfs/usr/share/veldora/theme"
-cp -- "$repo"/shell/theme/*.{json,svg,png} "$destination/airootfs/usr/share/veldora/theme/"
-mkdir -p "$config/fuzzel" "$config/foot" "$config/gtk-3.0" "$config/gtk-4.0" "$config/hypr"
-cp "$repo/shell/theme/storm/fuzzel.ini" "$config/fuzzel/"
-cp "$repo/shell/theme/storm/foot.ini" "$config/foot/"
-cp "$repo/shell/theme/storm/gtk.css" "$config/gtk-3.0/"
-cp "$repo/shell/theme/storm/gtk.css" "$config/gtk-4.0/"
-cp "$repo/shell/theme/storm/hyprlock.conf" "$config/hypr/"
-cp -a "$repo/shell/theme/storm" "$repo/shell/theme/ember" "$destination/airootfs/usr/share/veldora/theme/"
-mkdir -p "$config/illogical-impulse"
-cp "$repo/shell/end4-config.json" "$config/illogical-impulse/config.json"
-# Supporting paths expected by upstream actions; do not replace Veldora's compositor config.
-cp -a "$repo/vendor/end4/dots/.config/hypr/hyprland" "$config/hypr/"
-cp -a "$repo/vendor/end4/dots/.config/matugen" "$config/"
-mkdir -p "$destination/airootfs/usr/share/licenses/veldora-end4"
-cp "$repo/vendor/end4/LICENSE" "$repo/vendor/end4/UPSTREAM.md" "$destination/airootfs/usr/share/licenses/veldora-end4/"
-cp "$repo/docs/DESKTOP.md" "$destination/airootfs/usr/share/licenses/veldora-end4/VELDORA-MODIFICATIONS.md"
-cp -a "$repo/vendor/end4/licenses" "$destination/airootfs/usr/share/licenses/veldora-end4/"
+mkdir -p "$config/hypr" "$destination/airootfs/usr/share/veldora/workbench" "$destination/airootfs/usr/share/veldora/shell"
+cp -- "$repo/shell/hyprland.lua" "$config/hypr/hyprland.lua"
+# Keep the independently implemented GTK fallback explicitly available.
+cp -- "$repo"/shell/{main.py,model.py,notifications.xml,style.css} "$destination/airootfs/usr/share/veldora/shell/"
+cp -- "$repo"/workbench/{main.py,core.py,style.css} "$destination/airootfs/usr/share/veldora/workbench/"
+python "$repo/veldora-shell/veldora-integrate.py" --root "$destination/airootfs"
 printf 'Prepared profile: %s\n' "$destination"

@@ -20,7 +20,11 @@ def veldora_ini(veldora_sections):
 
 
 def veldora_generate(veldora_root):
+    if Path(veldora_root).is_symlink():
+        raise ValueError('The staged root must not be a symlink.')
     veldora_root = Path(veldora_root).resolve()
+    if not veldora_root.is_relative_to(VELDORA_SOURCE.parent/'build'):
+        raise ValueError('Stage profiles inside this repository’s build directory.')
     if veldora_root.name != 'airootfs' or not (veldora_root.parent/'profiledef.sh').is_file():
         raise ValueError('Destination must be a prepared Archiso profile/airootfs directory.')
     if veldora_root.is_symlink():
@@ -43,7 +47,7 @@ def veldora_generate(veldora_root):
     (veldora_root/veldora_shell).mkdir(parents=True, exist_ok=True)
     for veldora_file in sorted(VELDORA_SOURCE.glob('Veldora*.qml')):
         veldora_write(veldora_shell + veldora_file.name, veldora_file.read_text())
-    for veldora_name in ['qmldir', 'veldora-entry.qml', 'veldora-hardware.py', 'veldora-tokens.json', 'veldora-settings.json']:
+    for veldora_name in ['qmldir', 'veldora-entry.qml', 'VeldoraEvents.js', 'VeldoraApps.js', 'veldora-hardware.py', 'veldora-tokens.json', 'veldora-settings.json']:
         veldora_write(veldora_shell + veldora_name, (VELDORA_SOURCE/veldora_name).read_text())
     veldora_write(veldora_shell + 'shell.qml', (VELDORA_SOURCE/'veldora-entry.qml').read_text())
     # Original scale geometry; the rendering opacity comes from the shared tokens.
@@ -68,7 +72,7 @@ hl.curve("veldora-soft", {{ type = "bezier", points = {{ {{0.175, 0.885}}, {{0.3
 for _, veldora_leaf in ipairs({{"windows", "layers", "workspaces", "fade"}}) do
     hl.animation({{ leaf = veldora_leaf, enabled = true, speed = {veldora_t['animation']['duration']/100}, bezier = "veldora-soft" }})
 end
-hl.layer_rule({{ match = {{ namespace = "^veldora-(top|dock|controls|notifications|osd|launcher)$" }}, blur = true, ignore_alpha = 0.5, no_anim = true }})
+hl.layer_rule({{ match = {{ namespace = "^veldora-(top|dock|controls|notifications|osd|launcher|overview|veldock)$" }}, blur = true, ignore_alpha = 0.5, no_anim = true }})
 ''')
     veldora_css = '/* Generated from veldora-tokens.json for the ISO. */\n'
     for veldora_name, veldora_color in {
@@ -157,6 +161,8 @@ input-field {{
     veldora_write(veldora_config+'kdeglobals', veldora_palette)
     veldora_write('usr/share/color-schemes/Veldora.colors', veldora_palette)
     veldora_wallpaper = veldora_root/'usr/share/veldora/theme/black-dragon.png'
+    if not veldora_wallpaper.resolve().is_relative_to(veldora_root):
+        raise ValueError('Wallpaper path escapes the ISO root.')
     veldora_wallpaper.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(VELDORA_SOURCE.parent/'shell/theme/black-dragon.png', veldora_wallpaper)
     veldora_manifest.append('/usr/share/veldora/theme/black-dragon.png')

@@ -11,7 +11,7 @@ Singleton {
     readonly property var spacing: values.spacing
     readonly property var sizes: values.sizes
     readonly property var font: values.font
-    readonly property int duration: values.animation.duration
+    readonly property int duration: VeldoraState.reducedMotion ? 0 : values.animation.duration
     readonly property color surface: alpha(colors.surface, colors.surfaceOpacity)
     readonly property color accentSoft: alpha(colors.accent, colors.accentOpacity)
     readonly property color border: alpha(colors.border, colors.borderOpacity)

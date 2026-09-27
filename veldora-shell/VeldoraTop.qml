@@ -27,7 +27,7 @@ PanelWindow {
             id: veldoraWorkspaces
             anchors.centerIn: parent
             spacing: VeldoraTokens.spacing.sm
-            VeldoraButton { text: "VELDORA"; veldoraTint: VeldoraTokens.colors.accent; onClicked: VeldoraState.toggleLauncher() }
+            VeldoraButton { text: "VELDORA"; veldoraTint: VeldoraTokens.colors.accent; onClicked: VeldoraState.toggleOverview() }
             Repeater {
                 model: Hyprland.workspaces
                 delegate: Item {
@@ -56,10 +56,12 @@ PanelWindow {
         id: veldoraClockPill
         anchors.horizontalCenter: parent.horizontalCenter
         y: VeldoraTokens.sizes.barGap
-        width: veldoraTime.implicitWidth + VeldoraTokens.spacing.lg * 2; height: VeldoraTokens.sizes.bar
+        Behavior on width { NumberAnimation { duration: VeldoraTokens.duration; easing.type: Easing.OutBack } }
+        property real veldoraAvailable: Math.max(100, veldoraTop.width - 2*Math.max(veldoraLeft.width,veldoraRight.width) - VeldoraTokens.spacing.lg*2)
+        width: Math.min(veldoraAvailable, (VeldoraState.activeEvent ? 330 : 220)); height: VeldoraTokens.sizes.bar
         Rectangle { anchors.fill: parent; radius: parent.radius; color: VeldoraTokens.accentSoft; visible: veldoraClockMouse.containsMouse }
-        VeldoraText { id: veldoraTime; anchors.centerIn: parent; text: Qt.formatDateTime(veldoraClock.date, "hh:mm  ·  ddd, dd MMM"); font.weight: Font.Medium }
-        MouseArea { id: veldoraClockMouse; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: VeldoraState.toggleControls() }
+        VeldoraText { id: veldoraTime; anchors.centerIn: parent; width: parent.width - VeldoraTokens.spacing.lg*2; horizontalAlignment: Text.AlignHCenter; text: VeldoraState.privacyVeil ? "VelDock · " + VeldoraState.history.length + " events" : VeldoraState.activeEvent ? VeldoraState.activeEvent.title : Qt.formatDateTime(veldoraClock.date, "hh:mm  ·  ddd, dd MMM"); font.weight: Font.Medium }
+        MouseArea { id: veldoraClockMouse; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: VeldoraState.toggleIsland() }
     }
     VeldoraGlass {
         id: veldoraRight
@@ -72,7 +74,7 @@ PanelWindow {
             VeldoraButton { veldoraIcon: VeldoraState.hardware.wifi ? "wifi" : "wifi_off"; onClicked: VeldoraState.toggleControls(); Accessible.name: "Wi-Fi controls" }
             VeldoraButton { veldoraIcon: VeldoraState.hardware.bluetooth ? "bluetooth_connected" : "bluetooth_disabled"; onClicked: VeldoraState.toggleControls(); Accessible.name: "Bluetooth controls" }
             VeldoraButton { visible: VeldoraState.hardware.battery >= 0; veldoraIcon: VeldoraState.hardware.charging ? "battery_charging_full" : "battery_horiz_075"; text: VeldoraState.hardware.battery + "%"; onClicked: VeldoraState.toggleControls() }
-            VeldoraButton { veldoraIcon: "power_settings_new"; veldoraTint: VeldoraTokens.colors.accent; onClicked: { VeldoraState.controlsOpen = true; VeldoraState.powerOpen = true; } Accessible.name: "Power menu" }
+            VeldoraButton { veldoraIcon: "power_settings_new"; veldoraTint: VeldoraTokens.colors.accent; onClicked: { VeldoraState.closePanels(); VeldoraState.controlsOpen = !VeldoraState.privacyMode; VeldoraState.powerOpen = true; } Accessible.name: "Power menu" }
         }
     }
 }

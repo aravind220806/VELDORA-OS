@@ -14,3 +14,5 @@ VeldoraOsd 1.0 VeldoraOsd.qml
 VeldoraLauncher 1.0 VeldoraLauncher.qml
 VeldoraBackdrop 1.0 VeldoraBackdrop.qml
 VeldoraAppIcon 1.0 VeldoraAppIcon.qml
+VeldoraOverview 1.0 VeldoraOverview.qml
+VeldoraIsland 1.0 VeldoraIsland.qml

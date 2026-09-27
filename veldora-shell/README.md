@@ -1,76 +1,58 @@
 # Veldora Shell
 
-An original Quickshell desktop for this Arch Linux / Hyprland 0.56 Lua setup.
-Floating pills, a magnifying dock, a Control Center, notifications, hardware OSDs,
-and a searchable app launcher. Your existing wallpaper stays in place.
+Original Quickshell desktop for the Veldora Archiso image: coral accents, charcoal
+glass, rounded panels, a workspace overview, an app dock and the VelDock island.
+Development and previews stay in this repository. Do not install this shell on
+the build host or run the legacy desktop installer.
 
-## Install
+## Stage and build
 
-Requires the already-installed Quickshell, Qt Quick Controls and Effects, Python,
-Hyprland, PipeWire/WirePlumber (`wpctl`), NetworkManager (`nmcli`, `nmtui`), BlueZ
-(`bluetoothctl`), `brightnessctl`, Kitty, Hyprlock, and `gsettings`. Typography uses
-Noto Sans and Material Symbols Rounded (SIL OFL); the cursor is Bibata Modern
-Classic (GPL-3.0). No upstream shell source, icons, or wallpaper are bundled.
-
-From this directory:
+From the repository root:
 
 ```sh
-python3 veldora-integrate.py --install
+./scripts/prepare-profile.sh build/profile
+python scripts/validate.py --profile build/profile
+sudo ./scripts/build-iso.sh
 ```
 
-The installer saves replaced files and previous GSettings values in a fresh
-`~/veldora-backup-YYYYMMDD-HHMMSS/`, creates the `~/.config/quickshell/veldora`
-symlink, adds the Lua integration, and applies GTK/Qt/Kitty settings. Keep this
-source directory in place. Stop your previous shell before starting `qs -c veldora -d`.
-This session is already installed and running. The first complete config/source
-snapshot is `/home/codealpha/veldora-backup-20260919-190052/`; the installation
-rollback snapshot is `/home/codealpha/veldora-backup-20260919-191556/`.
+Use a fresh staging directory. `veldora-integrate.py --root build/profile/airootfs`
+generates toolkit and compositor styles from `veldora-tokens.json`. It accepts
+only a prepared profile under this repository's `build/`; it never changes host
+settings. Change tokens and prepare another profile to rebuild the theme.
+`veldora-generated/` and `veldora-previews/` are historical development artifacts,
+not ISO inputs. The packaged wallpaper is `shell/theme/black-dragon.png`; the
+build host's wallpaper is preserved.
 
-## Reload and customize
+## Controls
 
-```sh
-python3 veldora-integrate.py --reload
-```
+| Action | Shortcut |
+|---|---|
+| Workspace overview and app/window search | Windows/Super, or Super+Tab |
+| App launcher | Super+Space |
+| VelDock media/audio/events/apps/settings | Super+I, or center clock |
+| Control Center | Super+A |
+| Terminal / files / browser / workbench | Super+Return / E / B / S |
+| Lock / reload shell | Super+L / Ctrl+Super+R |
 
-The **only design source** is `veldora-tokens.json`. Change `colors.accent` and run
-the reload command; glass tints, window borders and toolkit colors follow it.
-`veldora-generated/` contains derived files, not independent theme settings.
-Reopen GTK/Qt/Kitty applications to apply their new appearance. Application-owned
-styling can override toolkit colors; Hyprland supplies their 16 px outer corners.
+Overview shows ten spaces in a 5×2 grid at desktop width and fewer columns on
+smaller displays. Occupied cards show live window captures when supported, with
+an app glyph fallback. Click a window or workspace; arrows and Enter also work.
+Type to search apps and window titles. Escape closes the active panel.
 
-`veldora-settings.json` holds the existing wallpaper path and pinned desktop-entry
-IDs. It contains preferences, not design values. Pin mode and Focus mode last for
-the current shell session. The wallpaper is referenced in its original location.
+The bottom dock groups running windows with pinned apps, including apps without
+a desktop entry. Click to launch or focus; repeated clicks cycle grouped windows.
+Hover enlarges icons. Pin mode persists; unpinned mode reveals at the bottom edge.
+VelDock keeps up to 100 recent events in memory, deduplicates updates, and returns
+to the clock after a glance expires. Focus mode suppresses glances and popups.
+Lock clears private history; fullscreen hides the dock and suppresses glances.
+Reduced motion and dock pinning are stored in the live user's settings JSON.
+Volume controls cap at 100%; external boost is labeled. No hardware services,
+Sentinel protection or managed jobs are simulated as available.
 
-Super opens applications; Escape closes the launcher. Super+A opens controls.
-Ctrl+Super+R reloads. Click a running dock app to focus it; repeated clicks cycle
-its windows. The pin button switches between a persistent dock and edge reveal.
-The Audio tile expands output choices; Network opens `nmtui`. Sound controls cap
-at 100%; externally boosted volume remains visible in red with a Boost label.
-Focus suppresses new popups. Power actions require an explicit menu selection;
-restart and shutdown additionally require the in-panel confirmation button.
+## Verification
 
-## Verification and recovery
-
-`python3 veldora-check.py` exercises the live shell and saves screenshots plus
-results under `veldora-previews/`. It temporarily uses an empty workspace and
-changes volume, then restores both. It opens and closes a test Kitty window.
-It requires `grim` and `wtype`; it does not trigger power or connectivity changes.
-Use `qs log -c veldora --no-color` and `hyprctl configerrors` to inspect errors.
-Restart-based reload avoids Qt warnings observed during Quickshell's automatic
-in-process reload on this installed version.
-
-For rollback, stop Veldora, restore each existing file from the installation
-backup's `veldora-files/` to the matching location in your home directory, remove
-new configuration files listed in `veldora-changed-files.json` that have no saved
-counterpart, and restore the three GSettings values in `veldora-gsettings.jsonl`.
-Then run `hyprctl reload` and restart your previous shell. The original complete
-snapshot excludes application caches, vendor/build trees and Git metadata.
-
-`veldora-files.md` lists every created or changed path. `shell.qml` is a symlink
-to the original `veldora-entry.qml`; `shell.qml`, `qmldir`, and `README.md` retain
-their standard discovery/documentation names. All Veldora implementation files
-are new; pre-existing repository work and third-party directories were preserved.
-
-API references: [Quickshell](https://quickshell.org/docs/),
-[Hyprland Lua bindings](https://wiki.hypr.land/configuring/core/binds/).
+See [validation](../docs/VALIDATION.md) and [feature audit](../docs/VELDORA-FEATURE-AUDIT.md).
+`tests/veldora_isolated.py` stages a new profile and runs a private compositor and
+session bus. It does not send input to the active host session. An isolated UI
+run is not an ISO build or boot test. Hardware, authentication, suspend and power
+actions require a disposable VM or intended-device test.

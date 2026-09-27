@@ -5,5 +5,7 @@
     "kitty",
     "firefox",
     "veldora-workbench"
-  ]
+  ],
+  "reducedMotion": false,
+  "workspaceCount": 10
 }

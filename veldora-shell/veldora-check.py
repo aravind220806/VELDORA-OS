@@ -7,6 +7,9 @@ import time
 import os
 import signal
 
+if os.environ.get("VELDORA_ISOLATED") != "1":
+    raise SystemExit("Run tests/veldora_isolated.py; live-host input testing is disabled.")
+
 veldora_root = Path(__file__).resolve().parent
 veldora_output = veldora_root/'veldora-previews'
 veldora_output.mkdir(exist_ok=True)

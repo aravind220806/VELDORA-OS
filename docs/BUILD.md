@@ -62,44 +62,26 @@ Before calling an ISO usable, check both firmware modes:
 - `systemctl --failed` and `journalctl -b -p err` show no unexplained failures.
 - Repeat on intended GPU/Wi-Fi hardware. VM success is not hardware certification.
 
-## Theme
+## Theme and staging
 
-`shell/hyprland.lua` targets **Hyprland 0.56 or newer** (Lua configuration).
-`shell/style.css` controls the island/dock. `shell/main.py` loads an optional wallpaper and runs the GTK3 layer-shell desktop. This initial
-implementation uses Python/GTK rather than the planned AGS/Astal rewrite.
+The current ISO shell is original Quickshell code in `veldora-shell/`, with
+Hyprland 0.56+ Lua configuration in `shell/hyprland.lua`. The generator derives
+GTK, Qt, terminal and lock-screen styling from one token file. It packages the
+repository's black-dragon wallpaper and leaves the build host unchanged.
 
-The current design follows the supplied compact Hyprland reference: workspace and
-system pills at top left, a small centered date/time island, and audio/network,
-Bluetooth, battery and power controls at top right. There is no bottom dock or
-large desktop clock. Notifications, new media metadata and control feedback widen
-the island temporarily; after five seconds it returns to date/time. Click the pill
-or press Super+I for media, notifications, quick controls, and app shortcuts.
+After preparing a profile, validate its assets and paths:
 
-The wallpaper defaults to near-black. To use your original artwork (PNG or JPEG),
-copy it to `~/.config/veldora/wallpaper` and restart the shell. For ISO inclusion,
-place it at `archiso-profile/airootfs/etc/skel/.config/veldora/wallpaper` before
-building. The reference screenshot has not been embedded as wallpaper because it
-already contains desktop UI.
+```bash
+python scripts/validate.py --profile build/profile
+node tests/veldora_models.cjs
+```
 
-Workspaces 1–10 are clickable; Super+0 selects 10. Active/occupied states update
-from Hyprland's event socket. CPU/RAM/CPU-temperature/root-disk readings refresh
-at five-second intervals; unavailable sensors display a dash. On screens narrower
-than 1500 logical pixels, metrics move into the expanded island to prevent overlap.
-Network opens `nmtui`, Bluetooth opens Blueman, and audio opens Pavucontrol.
-The power menu explicitly offers lock, suspend, restart and shutdown. Super+L
-launches Hyprlock; the disposable live account still uses the documented password.
-
-This is an independent Dynamic Island-inspired interaction, not Apple/vivo software.
-
-The island is a session D-Bus notification server. Do not run another notification
-daemon alongside it. It supports plain text, replacement, dismissal and expiration;
-notification action buttons and images are not implemented. Up to 30 notifications
-are retained in memory; expired notifications are removed. Media is refreshed every
-two seconds via playerctl. There is no claimed zero-idle-cost or Sentinel integration.
-The initial desktop uses the compositor's default output; full multi-monitor shell
-placement and per-output settings are future work.
-
-No changes to the build host's Hyprland configuration are made by these scripts.
+See [desktop controls](DESKTOP.md) and the [feature audit](VELDORA-FEATURE-AUDIT.md).
+Bare Super opens the workspace overview; Super+I opens VelDock; Super+A opens
+Control Center. Include the overview, app launch/focus, notifications and media
+controls in both BIOS and UEFI boot tests. Test lock authentication, audio,
+brightness, connectivity and power actions on intended hardware separately.
+Profile validation and isolated rendering do not establish ISO boot success.
 
 ## Sources
 

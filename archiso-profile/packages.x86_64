@@ -13,6 +13,8 @@ blueman
 bluez
 bluez-utils
 bolt
+breeze
+breeze-cursors
 brightnessctl
 brltty
 btrfs-progs
@@ -74,6 +76,7 @@ john
 jq
 kdialog
 kirigami
+kitty
 kitty-terminfo
 kmscon-terminfo
 ldns
@@ -133,6 +136,7 @@ pavucontrol
 pcsclite
 pipewire
 pipewire-pulse
+plasma-integration
 playerctl
 polkit-gnome
 ppp
@@ -152,6 +156,7 @@ python-requests
 python-setproctitle
 qemu-guest-agent
 qt6-5compat
+qt6-declarative
 qt6-imageformats
 qt6-multimedia
 qt6-positioning
